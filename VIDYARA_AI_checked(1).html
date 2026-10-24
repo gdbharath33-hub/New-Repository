@@ -1,0 +1,4038 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIDYARA AI — Learn Smarter, Not Harder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== CSS VARIABLES & RESET ===== */
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: #1a1f36;
+            --bg-card-hover: #2d3352;
+            --bg-input: #151b2e;
+            --text-primary: #f0f4ff;
+            --text-secondary: #8892b0;
+            --text-muted: #5a6480;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #3b82f6;
+            --accent-tertiary: #06b6d4;
+            --gradient-1: linear-gradient(135deg, #7c3aed, #3b82f6);
+            --gradient-2: linear-gradient(135deg, #3b82f6, #06b6d4);
+            --gradient-3: linear-gradient(135deg, #7c3aed, #ec4899);
+            --gradient-4: linear-gradient(135deg, #06b6d4, #10b981);
+            --border-color: rgba(124, 58, 237, 0.2);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.5);
+            --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --info: #3b82f6;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --bg-input: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-color: rgba(124, 58, 237, 0.15);
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-md: 0 4px 20px rgba(0,0,0,0.1);
+            --shadow-lg: 0 8px 40px rgba(0,0,0,0.12);
+            --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.08);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.2;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        button { cursor: pointer; border: none; font-family: inherit; }
+        input, textarea, select { font-family: inherit; }
+        img { max-width: 100%; }
+        ul { list-style: none; }
+
+        /* ===== SCROLLBAR ===== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-primary); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-secondary); }
+
+        /* ===== UTILITY CLASSES ===== */
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-1 { gap: 8px; }
+        .gap-2 { gap: 16px; }
+        .gap-3 { gap: 24px; }
+        .gap-4 { gap: 32px; }
+        .text-center { text-align: center; }
+        .hidden { display: none !important; }
+        .w-full { width: 100%; }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(124, 58, 237, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--accent-primary);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .btn-sm { padding: 8px 16px; font-size: 0.85rem; }
+        .btn-lg { padding: 16px 32px; font-size: 1.1rem; }
+        .btn-icon { padding: 10px; border-radius: var(--radius-sm); }
+
+        .btn-success { background: var(--success); color: white; }
+        .btn-danger { background: var(--error); color: white; }
+
+        /* ===== CARDS ===== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(124, 58, 237, 0.4);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-4px);
+        }
+
+        .card-flat { border: none; background: var(--bg-secondary); }
+        .card-glow { box-shadow: var(--shadow-glow); }
+
+        /* ===== INPUTS ===== */
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+
+        .input-group label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .input, .textarea, .select {
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px 16px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            outline: none;
+            width: 100%;
+        }
+
+        .input:focus, .textarea:focus, .select:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .textarea { resize: vertical; min-height: 120px; }
+        .select { cursor: pointer; appearance: none; }
+
+        /* ===== BADGES ===== */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-primary { background: rgba(124, 58, 237, 0.2); color: #a78bfa; }
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+        .badge-warning { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+        .badge-error { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+        .badge-info { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+
+        /* ===== LOADING SPINNER ===== */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .spinner-sm { width: 20px; height: 20px; border-width: 2px; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 48px;
+        }
+
+        .loading-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-input);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-1);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* ===== TOAST NOTIFICATIONS ===== */
+        .toast-container {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-lg);
+            min-width: 300px;
+            max-width: 450px;
+            animation: slideInRight 0.3s ease;
+            transition: var(--transition);
+        }
+
+        .toast-success { border-left: 4px solid var(--success); }
+        .toast-error { border-left: 4px solid var(--error); }
+        .toast-warning { border-left: 4px solid var(--warning); }
+        .toast-info { border-left: 4px solid var(--info); }
+
+        .toast-close {
+            margin-left: auto;
+            background: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            padding: 4px;
+        }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        /* ===== MODAL ===== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-xl);
+            max-width: 600px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            animation: scaleIn 0.3s ease;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 24px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .modal-body { padding: 24px; }
+        .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; gap: 12px; justify-content: flex-end; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        [data-theme="light"] .nav {
+            background: rgba(248, 250, 252, 0.9);
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            height: 70px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        .nav-logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--gradient-1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .nav-logo span { background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .nav-link {
+            padding: 8px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            transition: var(--transition);
+            cursor: pointer;
+            background: none;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .nav-link.active { color: var(--accent-primary); }
+
+        .nav-actions { display: flex; align-items: center; gap: 8px; }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-sm);
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .theme-toggle:hover { color: var(--accent-primary); border-color: var(--accent-primary); }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            padding: 8px;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-primary);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 16px 24px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .mobile-menu.active { display: flex; }
+        .mobile-menu .nav-link { display: block; padding: 12px 16px; }
+
+        /* ===== PAGE SECTIONS ===== */
+        .page-section {
+            display: none;
+            padding-top: 90px;
+            min-height: 100vh;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page-section.active { display: block; }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+            padding: 0 24px;
+        }
+
+        .section-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* ===== LANDING PAGE ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(124, 58, 237, 0.08) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 80%, rgba(6, 182, 212, 0.04) 0%, transparent 50%);
+            animation: heroFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(2%, -2%) rotate(1deg); }
+            66% { transform: translate(-1%, 1%) rotate(-1deg); }
+        }
+
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 15s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+            padding: 0 24px;
+            max-width: 1280px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-size: 3.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 .gradient-text {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            max-width: 520px;
+        }
+
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 48px;
+        }
+
+        .hero-stat h3 {
+            font-size: 1.8rem;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-stat p { font-size: 0.85rem; color: var(--text-muted); }
+
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-card-stack {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .hero-floating-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            box-shadow: var(--shadow-lg);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-floating-card:nth-child(1) { transform: rotate(-3deg); }
+        .hero-floating-card:nth-child(2) { margin-top: -30px; margin-left: 40px; transform: rotate(2deg); animation-delay: -2s; }
+        .hero-floating-card:nth-child(3) { margin-top: -20px; margin-left: 20px; transform: rotate(-1deg); animation-delay: -4s; }
+
+        .hero-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+        .hero-card-dot { width: 10px; height: 10px; border-radius: 50%; }
+        .hero-card-title { font-size: 0.85rem; font-weight: 600; }
+
+        .hero-card-content { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6; }
+        .hero-card-content code {
+            background: rgba(124, 58, 237, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            color: #a78bfa;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* ===== FEATURES SECTION ===== */
+        .features-section {
+            padding: 100px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .feature-card {
+            padding: 32px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* ===== SUBJECTS SECTION ===== */
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .subject-card {
+            padding: 24px 16px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .subject-card .emoji { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+        .subject-card h4 { font-size: 0.95rem; }
+
+        /* ===== DASHBOARD ===== */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            padding: 24px;
+        }
+
+        .stat-card .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .dashboard-main {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .quick-action-btn {
+            padding: 20px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .quick-action-btn:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .quick-action-btn .qa-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .quick-action-btn .qa-text h4 { font-size: 0.95rem; }
+        .quick-action-btn .qa-text p { font-size: 0.8rem; color: var(--text-muted); }
+
+        .recent-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .recent-item:hover { background: rgba(124, 58, 237, 0.05); }
+
+        .recent-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        .recent-info h4 { font-size: 0.9rem; margin-bottom: 2px; }
+        .recent-info p { font-size: 0.75rem; color: var(--text-muted); }
+
+        .streak-card {
+            text-align: center;
+            padding: 32px;
+        }
+
+        .streak-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: var(--gradient-3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .streak-label { color: var(--text-secondary); font-size: 0.9rem; margin-top: 4px; }
+
+        .streak-days {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .streak-day {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .streak-day.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        .streak-day.inactive {
+            background: var(--bg-input);
+            color: var(--text-muted);
+        }
+
+        /* ===== AI ASSISTANT ===== */
+        .ai-layout {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 24px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .ai-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .ai-main {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: calc(100vh - 280px);
+            background: var(--bg-secondary);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 12px;
+            max-width: 85%;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .chat-message.user { align-self: flex-end; flex-direction: row-reverse; }
+        .chat-message.ai { align-self: flex-start; }
+
+        .chat-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .chat-message.user .chat-avatar { background: var(--gradient-1); }
+        .chat-message.ai .chat-avatar { background: var(--gradient-2); }
+
+        .chat-bubble {
+            padding: 14px 18px;
+            border-radius: var(--radius-md);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .chat-message.user .chat-bubble {
+            background: var(--accent-primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-message.ai .chat-bubble {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-bottom-left-radius: 4px;
+        }
+
+        .chat-bubble h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--accent-primary); }
+        .chat-bubble h4 { font-size: 0.95rem; margin: 12px 0 6px; color: var(--accent-secondary); }
+        .chat-bubble ul { padding-left: 20px; }
+        .chat-bubble ul li { margin-bottom: 4px; list-style: disc; }
+        .chat-bubble code {
+            background: rgba(124, 58, 237, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+        .chat-bubble pre {
+            background: var(--bg-primary);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            overflow-x: auto;
+            margin: 8px 0;
+            font-size: 0.85rem;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .chat-input-area .input { flex: 1; }
+
+        .difficulty-selector {
+            display: flex;
+            gap: 6px;
+        }
+
+        .diff-btn {
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .diff-btn.active {
+            background: var(--gradient-1);
+            color: white;
+            border-color: transparent;
+        }
+
+        .conversation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .conversation-item {
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .conversation-item:hover, .conversation-item.active {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--text-primary);
+        }
+
+        /* ===== NOTES SCANNER ===== */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-xl);
+            padding: 64px 32px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.05);
+        }
+
+        .upload-zone .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .upload-zone h3 { margin-bottom: 8px; font-size: 1.2rem; }
+        .upload-zone p { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .preview-container {
+            margin-top: 24px;
+        }
+
+        .preview-image {
+            max-height: 300px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-color);
+            object-fit: contain;
+        }
+
+        .scan-results {
+            display: grid;
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .scan-result-card {
+            padding: 24px;
+        }
+
+        .scan-result-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== CONCEPT STUDIO ===== */
+        .concept-input-area {
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .storyboard {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+
+        .scene-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            padding: 32px;
+        }
+
+        .scene-visual {
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            padding: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 250px;
+            overflow: hidden;
+        }
+
+        .scene-visual svg {
+            width: 100%;
+            height: 100%;
+            max-height: 220px;
+        }
+
+        .scene-info h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .scene-info .scene-num {
+            display: inline-block;
+            background: var(--gradient-1);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        .scene-info p { color: var(--text-secondary); line-height: 1.7; }
+        .scene-info .narration {
+            margin-top: 12px;
+            padding: 12px;
+            background: rgba(124, 58, 237, 0.05);
+            border-left: 3px solid var(--accent-primary);
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== QUIZ ===== */
+        .quiz-setup {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .quiz-question-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .quiz-progress .q-counter { font-weight: 600; white-space: nowrap; }
+
+        .question-text {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .option-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            background: var(--bg-input);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            transition: var(--transition);
+            text-align: left;
+            width: 100%;
+        }
+
+        .option-btn:hover:not(.correct):not(.incorrect):not(.disabled) {
+            border-color: var(--accent-primary);
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .option-btn .option-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .option-btn.selected { border-color: var(--accent-primary); background: rgba(124, 58, 237, 0.15); }
+        .option-btn.selected .option-letter { background: var(--gradient-1); color: white; border-color: transparent; }
+
+        .option-btn.correct { border-color: var(--success); background: rgba(16, 185, 129, 0.1); }
+        .option-btn.correct .option-letter { background: var(--success); color: white; border-color: transparent; }
+
+        .option-btn.incorrect { border-color: var(--error); background: rgba(239, 68, 68, 0.1); }
+        .option-btn.incorrect .option-letter { background: var(--error); color: white; border-color: transparent; }
+
+        .option-btn.disabled { opacity: 0.6; pointer-events: none; }
+
+        .explanation-box {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            margin-top: 16px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .explanation-box.correct-exp {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .explanation-box.incorrect-exp {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .quiz-nav { display: flex; justify-content: space-between; margin-top: 24px; }
+
+        .quiz-results {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .score-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 24px auto;
+            position: relative;
+        }
+
+        .score-circle::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            padding: 6px;
+            background: var(--gradient-1);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .score-circle .score-value {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .score-circle .score-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin: 32px 0;
+        }
+
+        .result-stat {
+            padding: 20px;
+        }
+
+        .result-stat .rs-value { font-size: 1.5rem; font-weight: 700; }
+        .result-stat .rs-label { font-size: 0.8rem; color: var(--text-secondary); margin-top: 4px; }
+
+        .answer-input {
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        /* ===== ROADMAP ===== */
+        .roadmap-setup {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .roadmap-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .roadmap-timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .roadmap-timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 24px;
+            padding: 20px;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: -33px;
+            top: 24px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--bg-input);
+            border: 3px solid var(--border-color);
+            z-index: 1;
+        }
+
+        .roadmap-item.completed::before {
+            background: var(--success);
+            border-color: var(--success);
+        }
+
+        .roadmap-item.current::before {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.2);
+        }
+
+        .roadmap-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .roadmap-item h4 { font-size: 1rem; }
+        .roadmap-item p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; }
+
+        .roadmap-tasks {
+            margin-top: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .roadmap-task {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .roadmap-task input[type="checkbox"] {
+            accent-color: var(--accent-primary);
+            width: 16px;
+            height: 16px;
+        }
+
+        .roadmap-task.done {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        /* ===== BOOKMARKS ===== */
+        .bookmarks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .bookmark-card {
+            padding: 20px;
+        }
+
+        .bookmark-card h4 { font-size: 0.95rem; margin-bottom: 8px; }
+        .bookmark-card p { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; }
+        .bookmark-card .bookmark-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 12px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* ===== SETTINGS ===== */
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 32px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .settings-nav { display: flex; flex-direction: column; gap: 4px; }
+
+        .settings-nav-item {
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition);
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            text-align: left;
+            width: 100%;
+        }
+
+        .settings-nav-item:hover, .settings-nav-item.active {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--text-primary);
+        }
+
+        .settings-section { display: none; }
+        .settings-section.active { display: block; }
+
+        .settings-group {
+            margin-bottom: 32px;
+        }
+
+        .settings-group h3 { font-size: 1.1rem; margin-bottom: 16px; }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .setting-row:last-child { border-bottom: none; }
+
+        .setting-info h4 { font-size: 0.95rem; margin-bottom: 2px; }
+        .setting-info p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Toggle Switch */
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 26px;
+        }
+
+        .toggle input { opacity: 0; width: 0; height: 0; }
+
+        .toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 26px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .toggle-slider::before {
+            content: '';
+            position: absolute;
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            top: 2px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .toggle input:checked + .toggle-slider { background: var(--accent-primary); border-color: var(--accent-primary); }
+        .toggle input:checked + .toggle-slider::before { transform: translateX(22px); background: white; }
+
+        /* ===== TABS ===== */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-input);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
+            font-weight: 500;
+            background: none;
+            color: var(--text-secondary);
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-1);
+            color: white;
+        }
+
+        /* ===== EMPTY STATE ===== */
+        .empty-state {
+            text-align: center;
+            padding: 64px 24px;
+        }
+
+        .empty-state .empty-icon { font-size: 3rem; margin-bottom: 16px; opacity: 0.5; }
+        .empty-state h3 { font-size: 1.2rem; margin-bottom: 8px; }
+        .empty-state p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            margin-top: 80px;
+        }
+
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .footer p { color: var(--text-muted); font-size: 0.85rem; }
+        .footer-links { display: flex; gap: 24px; }
+        .footer-links a { color: var(--text-secondary); font-size: 0.85rem; transition: var(--transition); }
+        .footer-links a:hover { color: var(--accent-primary); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero-content { grid-template-columns: 1fr; text-align: center; }
+            .hero-text .subtitle { margin: 0 auto 32px; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-content: center; }
+            .hero-visual { display: none; }
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-main { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .ai-layout { grid-template-columns: 1fr; }
+            .ai-sidebar { display: none; }
+            .scene-card { grid-template-columns: 1fr; }
+            .settings-layout { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .section-header h1 { font-size: 2rem; }
+            .dashboard-grid { grid-template-columns: 1fr 1fr; }
+            .quick-actions { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+            .results-stats { grid-template-columns: 1fr; }
+            .bookmarks-grid { grid-template-columns: 1fr; }
+            .footer-inner { flex-direction: column; gap: 16px; text-align: center; }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 { font-size: 2rem; }
+            .hero-stats { flex-direction: column; gap: 16px; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; }
+            .btn-lg { padding: 14px 24px; }
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Typing animation */
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 8px 12px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            animation: typingBounce 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typingBounce {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+
+        /* Animated gradient border */
+        .gradient-border {
+            position: relative;
+        }
+
+        .gradient-border::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: inherit;
+            background: var(--gradient-1);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gradient-border:hover::before { opacity: 1; }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-box {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            border-radius: var(--radius-xl);
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid var(--border-color);
+        }
+
+        .cta-box h2 { font-size: 2rem; margin-bottom: 16px; }
+        .cta-box p { color: var(--text-secondary); margin-bottom: 32px; }
+
+        /* API Config Banner */
+        .api-banner {
+            padding: 16px 24px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: var(--radius-md);
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+        }
+
+        .api-banner .close-banner {
+            margin-left: auto;
+            background: none;
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        /* Tag/chip */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 12px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            color: var(--accent-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tag:hover { background: rgba(124, 58, 237, 0.2); }
+        .tag-remove { font-size: 1rem; cursor: pointer; }
+    
+        /* ===== FINAL POLISH ===== */
+        :focus-visible { outline: 3px solid rgba(6,182,212,.65); outline-offset: 3px; }
+        button:disabled { cursor: not-allowed; }
+        .upload-zone.dragover { transform: scale(1.01); }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo" onclick="navigateTo('landing')">
+                <div class="nav-logo-icon">🧠</div>
+                <span>VIDYARA AI</span>
+            </a>
+
+            <div class="nav-links" id="navLinks">
+                <button class="nav-link active" data-page="landing" onclick="navigateTo('landing')">Home</button>
+                <button class="nav-link" data-page="dashboard" onclick="navigateTo('dashboard')">Dashboard</button>
+                <button class="nav-link" data-page="assistant" onclick="navigateTo('assistant')">AI Assistant</button>
+                <button class="nav-link" data-page="scanner" onclick="navigateTo('scanner')">Smart Scan</button>
+                <button class="nav-link" data-page="visualizer" onclick="navigateTo('visualizer')">Visualize</button>
+                <button class="nav-link" data-page="quiz" onclick="navigateTo('quiz')">Quiz</button>
+                <button class="nav-link" data-page="roadmap" onclick="navigateTo('roadmap')">Roadmap</button>
+            </div>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">🌙</button>
+                <button class="nav-link" data-page="bookmarks" onclick="navigateTo('bookmarks')">📑</button>
+                <button class="nav-link" data-page="settings" onclick="navigateTo('settings')">⚙️</button>
+                <button class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()" aria-label="Open navigation menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="nav-link" onclick="navigateTo('landing'); toggleMobileMenu();">Home</button>
+        <button class="nav-link" onclick="navigateTo('dashboard'); toggleMobileMenu();">Dashboard</button>
+        <button class="nav-link" onclick="navigateTo('assistant'); toggleMobileMenu();">AI Assistant</button>
+        <button class="nav-link" onclick="navigateTo('scanner'); toggleMobileMenu();">Smart Scan</button>
+        <button class="nav-link" onclick="navigateTo('visualizer'); toggleMobileMenu();">Visualize</button>
+        <button class="nav-link" onclick="navigateTo('quiz'); toggleMobileMenu();">Quiz</button>
+        <button class="nav-link" onclick="navigateTo('roadmap'); toggleMobileMenu();">Roadmap</button>
+        <button class="nav-link" onclick="navigateTo('bookmarks'); toggleMobileMenu();">Bookmarks</button>
+        <button class="nav-link" onclick="navigateTo('settings'); toggleMobileMenu();">Settings</button>
+    </div>
+
+    <!-- ===== LANDING PAGE ===== -->
+    <section class="page-section active" id="page-landing">
+        <div class="hero">
+            <div class="hero-bg">
+                <div class="hero-particles" id="particles"></div>
+            </div>
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge badge-primary" style="margin-bottom: 16px;">✨ AI-Powered Learning Platform</div>
+                    <h1>Turn Your <span class="gradient-text">Confusion</span> Into <span class="gradient-text">Clarity</span></h1>
+                    <p class="subtitle">Your personal AI tutor that transforms complex topics into simple explanations, visual learning experiences, and interactive quizzes.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary btn-lg" onclick="navigateTo('dashboard')">🚀 Start Learning</button>
+                        <button class="btn btn-secondary btn-lg" onclick="document.querySelector('.features-section').scrollIntoView({behavior:'smooth'})">Explore Features</button>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat"><h3>50+</h3><p>Subjects Covered</p></div>
+                        <div class="hero-stat"><h3>AI</h3><p>Powered Tutoring</p></div>
+                        <div class="hero-stat"><h3>∞</h3><p>Practice Quizzes</p></div>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-card-stack">
+                        <div class="hero-floating-card">
+                            <div class="hero-card-header">
+                                <div class="hero-card-dot" style="background: var(--success)"></div>
+                                <span class="hero-card-title">AI Explanation</span>
+                            </div>
+                            <div class="hero-card-content">
+                                <strong>Photosynthesis</strong> is the process by which plants convert <code>CO₂</code> + <code>H₂O</code> → <code>C₆H₁₂O₆</code> + <code>O₂</code> using sunlight energy...
+                            </div>
+                        </div>
+                        <div class="hero-floating-card">
+                            <div class="hero-card-header">
+                                <div class="hero-card-dot" style="background: var(--accent-primary)"></div>
+                                <span class="hero-card-title">Quiz Question</span>
+                            </div>
+                            <div class="hero-card-content">
+                                What is the powerhouse of the cell?<br>
+                                ✅ <strong>Mitochondria</strong> — Correct! +10 points
+                            </div>
+                        </div>
+                        <div class="hero-floating-card">
+                            <div class="hero-card-header">
+                                <div class="hero-card-dot" style="background: var(--accent-secondary)"></div>
+                                <span class="hero-card-title">Smart Scan</span>
+                            </div>
+                            <div class="hero-card-content">
+                                📝 3 key formulas detected<br>
+                                📋 Summary generated<br>
+                                ❓ 5 practice questions created
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features-section">
+            <div class="section-header">
+                <h1>Powerful Features</h1>
+                <p>Everything you need to master any subject, powered by artificial intelligence</p>
+            </div>
+            <div class="features-grid">
+                <div class="card feature-card" onclick="navigateTo('assistant')">
+                    <div class="feature-icon" style="background: rgba(124, 58, 237, 0.15);">🤖</div>
+                    <h3>AI Study Assistant</h3>
+                    <p>Ask any question and get clear, level-appropriate explanations with examples and summaries.</p>
+                </div>
+                <div class="card feature-card" onclick="navigateTo('scanner')">
+                    <div class="feature-icon" style="background: rgba(59, 130, 246, 0.15);">📸</div>
+                    <h3>Smart Scan</h3>
+                    <p>Upload notes or photos. AI extracts text, generates summaries, and creates revision material.</p>
+                </div>
+                <div class="card feature-card" onclick="navigateTo('visualizer')">
+                    <div class="feature-icon" style="background: rgba(6, 182, 212, 0.15);">🎬</div>
+                    <h3>Concept Studio</h3>
+                    <p>Visualize any concept with animated storyboards, diagrams, and step-by-step visual explanations.</p>
+                </div>
+                <div class="card feature-card" onclick="navigateTo('quiz')">
+                    <div class="feature-icon" style="background: rgba(16, 185, 129, 0.15);">📝</div>
+                    <h3>Quiz Generator</h3>
+                    <p>Generate instant quizzes with MCQs, true/false, and short answers. Get feedback and scores.</p>
+                </div>
+                <div class="card feature-card" onclick="navigateTo('roadmap')">
+                    <div class="feature-icon" style="background: rgba(236, 72, 153, 0.15);">🗺️</div>
+                    <h3>Learning Roadmap</h3>
+                    <p>Get a personalized study plan with daily tasks, progress tracking, and smart recommendations.</p>
+                </div>
+                <div class="card feature-card" onclick="navigateTo('dashboard')">
+                    <div class="feature-icon" style="background: rgba(245, 158, 11, 0.15);">📊</div>
+                    <h3>Progress Dashboard</h3>
+                    <p>Track your learning streak, quiz scores, completed topics, and study statistics.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subjects -->
+        <div style="padding: 60px 0;">
+            <div class="section-header">
+                <h1>Explore Subjects</h1>
+                <p>Learn anything from science to humanities, all powered by AI</p>
+            </div>
+            <div class="subjects-grid">
+                <div class="card subject-card" onclick="startLearning('Mathematics')"><span class="emoji">📐</span><h4>Mathematics</h4></div>
+                <div class="card subject-card" onclick="startLearning('Physics')"><span class="emoji">⚡</span><h4>Physics</h4></div>
+                <div class="card subject-card" onclick="startLearning('Chemistry')"><span class="emoji">🧪</span><h4>Chemistry</h4></div>
+                <div class="card subject-card" onclick="startLearning('Biology')"><span class="emoji">🧬</span><h4>Biology</h4></div>
+                <div class="card subject-card" onclick="startLearning('Computer Science')"><span class="emoji">💻</span><h4>Computer Science</h4></div>
+                <div class="card subject-card" onclick="startLearning('History')"><span class="emoji">📜</span><h4>History</h4></div>
+                <div class="card subject-card" onclick="startLearning('English')"><span class="emoji">📖</span><h4>English</h4></div>
+                <div class="card subject-card" onclick="startLearning('Economics')"><span class="emoji">📈</span><h4>Economics</h4></div>
+                <div class="card subject-card" onclick="startLearning('Geography')"><span class="emoji">🌍</span><h4>Geography</h4></div>
+                <div class="card subject-card" onclick="startLearning('Psychology')"><span class="emoji">🧠</span><h4>Psychology</h4></div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <div class="cta-box">
+                <h2>Ready to Learn Smarter?</h2>
+                <p>Join VIDYARA AI and transform the way you study. AI-powered explanations, visual learning, and personalized roadmaps await you.</p>
+                <button class="btn btn-primary btn-lg" onclick="navigateTo('dashboard')">🚀 Get Started Free</button>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="footer-inner">
+                <p>© 2025 VIDYARA AI — Learn Smarter. Visualize Better. Achieve More.</p>
+                <div class="footer-links">
+                    <a href="#" onclick="navigateTo('settings')">Settings</a>
+                    <a href="#">About</a>
+                    <a href="#">Privacy</a>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <!-- ===== DASHBOARD ===== -->
+    <section class="page-section" id="page-dashboard">
+        <div class="container" style="padding-top: 20px;">
+            <div style="margin-bottom: 32px;">
+                <h1 style="font-size: 2rem; margin-bottom: 4px;">Welcome back, Student! 👋</h1>
+                <p style="color: var(--text-secondary);">Here's your learning progress at a glance.</p>
+            </div>
+
+            <div class="dashboard-grid" id="dashStats">
+                <div class="card stat-card">
+                    <div class="stat-icon" style="background: rgba(124, 58, 237, 0.15);">📚</div>
+                    <div class="stat-value" id="statTopics">0</div>
+                    <div class="stat-label">Topics Studied</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15);">✅</div>
+                    <div class="stat-value" id="statQuizzes">0</div>
+                    <div class="stat-label">Quizzes Taken</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15);">📊</div>
+                    <div class="stat-value" id="statAvgScore">0%</div>
+                    <div class="stat-label">Average Score</div>
+                </div>
+                <div class="card stat-card">
+                    <div class="stat-icon" style="background: rgba(236, 72, 153, 0.15);">🔥</div>
+                    <div class="stat-value" id="statStreak">0</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <h3 style="margin-bottom: 16px;">Quick Actions</h3>
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="navigateTo('assistant')">
+                    <div class="qa-icon" style="background: rgba(124, 58, 237, 0.15);">🤖</div>
+                    <div class="qa-text"><h4>Ask AI</h4><p>Get instant explanations</p></div>
+                </button>
+                <button class="quick-action-btn" onclick="navigateTo('scanner')">
+                    <div class="qa-icon" style="background: rgba(59, 130, 246, 0.15);">📸</div>
+                    <div class="qa-text"><h4>Scan Notes</h4><p>Upload & process notes</p></div>
+                </button>
+                <button class="quick-action-btn" onclick="navigateTo('quiz')">
+                    <div class="qa-icon" style="background: rgba(16, 185, 129, 0.15);">📝</div>
+                    <div class="qa-text"><h4>Take Quiz</h4><p>Test your knowledge</p></div>
+                </button>
+                <button class="quick-action-btn" onclick="navigateTo('visualizer')">
+                    <div class="qa-icon" style="background: rgba(6, 182, 212, 0.15);">🎬</div>
+                    <div class="qa-text"><h4>Visualize</h4><p>See concepts come alive</p></div>
+                </button>
+            </div>
+
+            <div class="dashboard-main">
+                <div>
+                    <div class="card" style="margin-bottom: 24px;">
+                        <h3 style="margin-bottom: 16px;">📖 Recent Activity</h3>
+                        <div id="recentActivity">
+                            <div class="empty-state" style="padding: 24px;">
+                                <p style="margin: 0;">No recent activity yet. Start learning to see your progress here!</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 16px;">💡 Recommended Topics</h3>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;" id="recommendedTopics">
+                            <span class="tag" onclick="startLearning('Photosynthesis')">🌱 Photosynthesis</span>
+                            <span class="tag" onclick="startLearning('Newton Laws')">⚡ Newton's Laws</span>
+                            <span class="tag" onclick="startLearning('Data Structures')">💻 Data Structures</span>
+                            <span class="tag" onclick="startLearning('Organic Chemistry')">🧪 Organic Chemistry</span>
+                            <span class="tag" onclick="startLearning('World War II')">📜 World War II</span>
+                            <span class="tag" onclick="startLearning('Calculus')">📐 Calculus</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="card streak-card" style="margin-bottom: 24px;">
+                        <div style="font-size: 1.5rem; margin-bottom: 8px;">🔥</div>
+                        <div class="streak-number" id="streakNumber">0</div>
+                        <div class="streak-label">Day Learning Streak</div>
+                        <div class="streak-days" id="streakDays"></div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="margin-bottom: 16px; font-size: 1rem;">📑 Saved Notes</h3>
+                        <div id="savedNotesList">
+                            <div class="empty-state" style="padding: 16px;">
+                                <p style="margin: 0; font-size: 0.85rem;">No saved notes yet</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== AI ASSISTANT ===== -->
+    <section class="page-section" id="page-assistant">
+        <div class="container" style="padding-top: 20px;">
+            <div class="api-banner" id="aiBanner">
+                <span>⚠️</span>
+                <span>Running in <strong>Demo Mode</strong>. AI responses are sample content for demonstration. Configure your AI API key in Settings for real AI-powered responses.</span>
+                <button class="close-banner" onclick="this.parentElement.style.display='none'">✕</button>
+            </div>
+
+            <div class="ai-layout">
+                <div class="ai-sidebar">
+                    <button class="btn btn-primary w-full" onclick="newConversation()">➕ New Conversation</button>
+
+                    <div class="card" style="padding: 16px;">
+                        <h4 style="font-size: 0.85rem; margin-bottom: 12px; color: var(--text-muted);">DIFFICULTY LEVEL</h4>
+                        <div class="difficulty-selector">
+                            <button class="diff-btn active" onclick="setDifficulty('beginner', this)">Beginner</button>
+                            <button class="diff-btn" onclick="setDifficulty('intermediate', this)">Intermediate</button>
+                            <button class="diff-btn" onclick="setDifficulty('advanced', this)">Advanced</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 16px;">
+                        <h4 style="font-size: 0.85rem; margin-bottom: 12px; color: var(--text-muted);">CONVERSATIONS</h4>
+                        <div class="conversation-list" id="conversationList">
+                            <button class="conversation-item active">💬 New Chat</button>
+                        </div>
+                    </div>
+
+                    <div class="card" style="padding: 16px;">
+                        <h4 style="font-size: 0.85rem; margin-bottom: 12px; color: var(--text-muted);">QUICK TOPICS</h4>
+                        <div style="display: flex; flex-direction: column; gap: 4px;">
+                            <button class="conversation-item" onclick="askAI('Explain photosynthesis')">🌱 Photosynthesis</button>
+                            <button class="conversation-item" onclick="askAI('Explain Newton\\'s laws of motion')">⚡ Newton's Laws</button>
+                            <button class="conversation-item" onclick="askAI('What are data structures?')">💻 Data Structures</button>
+                            <button class="conversation-item" onclick="askAI('Explain the periodic table')">🧪 Periodic Table</button>
+                            <button class="conversation-item" onclick="askAI('What is machine learning?')">🤖 Machine Learning</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-main">
+                    <div class="chat-container" id="chatContainer">
+                        <div class="chat-message ai">
+                            <div class="chat-avatar">🤖</div>
+                            <div class="chat-bubble">
+                                <h3>Hello! I'm your VIDYARA AI Study Assistant</h3>
+                                <p>I can help you understand any topic. Just type your question or choose a topic from the sidebar. I'll provide explanations tailored to your level!</p>
+                                <h4>Try asking me:</h4>
+                                <ul>
+                                    <li>Explain quantum mechanics simply</li>
+                                    <li>What is recursion in programming?</li>
+                                    <li>How does the human heart work?</li>
+                                    <li>Explain supply and demand in economics</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-area">
+                        <input type="text" class="input" id="chatInput" placeholder="Ask any question... (e.g., Explain photosynthesis)" onkeydown="if(event.key==='Enter') sendMessage()">
+                        <button class="btn btn-primary" onclick="sendMessage()">Send ➤</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== NOTES SCANNER ===== -->
+    <section class="page-section" id="page-scanner">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>📸 Smart Scan</h1>
+                <p>Upload your notes, and AI will extract text, create summaries, and generate study material</p>
+            </div>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div class="api-banner" id="scanBanner">
+                    <span>ℹ️</span>
+                    <span><strong>Demo Mode:</strong> Text extraction simulated with sample content. For real OCR, configure Tesseract.js or an OCR API in Settings.</span>
+                    <button class="close-banner" onclick="this.parentElement.style.display='none'">✕</button>
+                </div>
+
+                <div class="upload-zone" id="uploadZone">
+                    <input type="file" id="fileInput" accept="image/*,.pdf,.txt,.doc,.docx" onchange="handleFileUpload(event)">
+                    <div class="upload-icon">📤</div>
+                    <h3>Drop your notes here or click to upload</h3>
+                    <p>Supports images (JPG, PNG), PDF, and text files</p>
+                    <p style="font-size: 0.8rem; margin-top: 8px; color: var(--text-muted);">Max file size: 10MB</p>
+                </div>
+
+                <div class="preview-container hidden" id="previewContainer">
+                    <div class="card" style="margin-bottom: 24px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px;">
+                            <h3>📋 File Preview</h3>
+                            <button class="btn btn-sm btn-ghost" onclick="clearUpload()">✕ Remove</button>
+                        </div>
+                        <div id="previewContent" style="text-align: center;"></div>
+                        <div style="margin-top: 16px; display: flex; gap: 12px;">
+                            <button class="btn btn-primary" onclick="processFile()">🔍 Process & Analyze</button>
+                            <button class="btn btn-secondary" onclick="clearUpload()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hidden" id="scanLoading">
+                    <div class="loading-overlay">
+                        <div class="spinner"></div>
+                        <div class="loading-text">Analyzing your notes...</div>
+                    </div>
+                </div>
+
+                <div class="scan-results hidden" id="scanResults">
+                    <div class="card scan-result-card">
+                        <h3>📝 Extracted Text</h3>
+                        <div id="extractedText" style="white-space: pre-wrap; font-size: 0.9rem; line-height: 1.7; max-height: 200px; overflow-y: auto;"></div>
+                    </div>
+                    <div class="card scan-result-card">
+                        <h3>📋 Summary</h3>
+                        <div id="scanSummary" style="line-height: 1.7;"></div>
+                    </div>
+                    <div class="card scan-result-card">
+                        <h3>🔑 Key Concepts</h3>
+                        <div id="keyConcepts"></div>
+                    </div>
+                    <div class="card scan-result-card">
+                        <h3>❓ Practice Questions</h3>
+                        <div id="practiceQuestions"></div>
+                    </div>
+                    <div style="display: flex; gap: 12px; margin-top: 16px;">
+                        <button class="btn btn-primary" onclick="downloadScanResults()">📥 Download Notes</button>
+                        <button class="btn btn-secondary" onclick="saveScanResults()">💾 Save to Dashboard</button>
+                        <button class="btn btn-ghost" onclick="clearUpload()">Scan Another</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONCEPT VISUALIZER ===== -->
+    <section class="page-section" id="page-visualizer">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>🎬 Concept Animation Studio</h1>
+                <p>Enter any topic and see it explained visually with animated storyboards</p>
+            </div>
+
+            <div class="concept-input-area">
+                <div class="api-banner" id="vizBanner">
+                    <span>ℹ️</span>
+                    <span><strong>Visual Mode:</strong> Storyboards are generated with SVG diagrams and CSS animations. These are demonstrations created from sample educational content.</span>
+                    <button class="close-banner" onclick="this.parentElement.style.display='none'">✕</button>
+                </div>
+                <div class="input-group" style="margin-bottom: 16px;">
+                    <label>Enter a concept to visualize</label>
+                    <input type="text" class="input" id="conceptInput" placeholder="e.g., How does photosynthesis work?">
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <button class="btn btn-primary" onclick="generateVisualization()">🎨 Generate Storyboard</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('conceptInput').value = 'Water Cycle'; generateVisualization();">Try: Water Cycle</button>
+                </div>
+            </div>
+
+            <div class="hidden" id="vizLoading">
+                <div class="loading-overlay">
+                    <div class="spinner"></div>
+                    <div class="loading-text">Creating visual explanation...</div>
+                </div>
+            </div>
+
+            <div id="storyboardContainer" class="storyboard hidden"></div>
+        </div>
+    </section>
+
+    <!-- ===== QUIZ ===== -->
+    <section class="page-section" id="page-quiz">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>📝 AI Quiz Generator</h1>
+                <p>Test your knowledge with auto-generated quizzes on any topic</p>
+            </div>
+
+            <!-- Quiz Setup -->
+            <div id="quizSetup" class="quiz-setup">
+                <div class="card" style="padding: 32px;">
+                    <h2 style="margin-bottom: 24px;">Configure Your Quiz</h2>
+                    <div class="input-group" style="margin-bottom: 20px;">
+                        <label>Topic / Subject</label>
+                        <input type="text" class="input" id="quizTopic" placeholder="e.g., Cell Biology, Newton's Laws, JavaScript">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                        <div class="input-group">
+                            <label>Difficulty</label>
+                            <select class="select" id="quizDifficulty">
+                                <option value="easy">Easy</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="hard">Hard</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Number of Questions</label>
+                            <select class="select" id="quizCount">
+                                <option value="5">5 Questions</option>
+                                <option value="10" selected>10 Questions</option>
+                                <option value="15">15 Questions</option>
+                                <option value="20">20 Questions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 24px;">
+                        <label>Quiz Mode</label>
+                        <div class="tabs" style="margin-bottom: 0;">
+                            <button class="tab-btn active" onclick="setQuizMode('practice', this)">🎯 Practice Mode</button>
+                            <button class="tab-btn" onclick="setQuizMode('exam', this)">📋 Exam Mode</button>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;" id="modeDescription">Practice: See answers after each question</p>
+                    </div>
+                    <button class="btn btn-primary btn-lg w-full" onclick="startQuiz()">🚀 Generate Quiz</button>
+                </div>
+            </div>
+
+            <!-- Quiz Active -->
+            <div id="quizActive" class="hidden"></div>
+
+            <!-- Quiz Results -->
+            <div id="quizResults" class="hidden"></div>
+        </div>
+    </section>
+
+    <!-- ===== LEARNING ROADMAP ===== -->
+    <section class="page-section" id="page-roadmap">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>🗺️ Learning Roadmap</h1>
+                <p>Get a personalized study plan tailored to your goals and schedule</p>
+            </div>
+
+            <!-- Roadmap Setup -->
+            <div id="roadmapSetup" class="roadmap-setup">
+                <div class="card" style="padding: 32px;">
+                    <h2 style="margin-bottom: 24px;">Create Your Learning Path</h2>
+                    <div class="input-group" style="margin-bottom: 20px;">
+                        <label>Subject / Topic</label>
+                        <input type="text" class="input" id="roadmapSubject" placeholder="e.g., Machine Learning, Organic Chemistry">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 20px;">
+                        <label>Learning Goal</label>
+                        <input type="text" class="input" id="roadmapGoal" placeholder="e.g., Prepare for final exam, Learn from scratch">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+                        <div class="input-group">
+                            <label>Current Level</label>
+                            <select class="select" id="roadmapLevel">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Study Time (hours/day)</label>
+                            <select class="select" id="roadmapTime">
+                                <option value="1">1 hour</option>
+                                <option value="2" selected>2 hours</option>
+                                <option value="3">3 hours</option>
+                                <option value="4">4+ hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 24px;">
+                        <label>Target Completion Date (optional)</label>
+                        <input type="date" class="input" id="roadmapDate">
+                    </div>
+                    <button class="btn btn-primary btn-lg w-full" onclick="generateRoadmap()">🗺️ Generate Roadmap</button>
+                </div>
+            </div>
+
+            <!-- Roadmap Display -->
+            <div id="roadmapDisplay" class="hidden"></div>
+        </div>
+    </section>
+
+    <!-- ===== BOOKMARKS ===== -->
+    <section class="page-section" id="page-bookmarks">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>📑 Bookmarks & Saved Content</h1>
+                <p>All your saved explanations, notes, and study material in one place</p>
+            </div>
+
+            <div class="tabs" style="max-width: 500px; margin: 0 auto 32px;">
+                <button class="tab-btn active" onclick="filterBookmarks('all', this)">All</button>
+                <button class="tab-btn" onclick="filterBookmarks('explanations', this)">Explanations</button>
+                <button class="tab-btn" onclick="filterBookmarks('notes', this)">Notes</button>
+                <button class="tab-btn" onclick="filterBookmarks('quizzes', this)">Quizzes</button>
+            </div>
+
+            <div class="bookmarks-grid" id="bookmarksGrid">
+                <div class="empty-state" style="grid-column: 1 / -1;">
+                    <div class="empty-icon">📑</div>
+                    <h3>No bookmarks yet</h3>
+                    <p>Save explanations, notes, and quiz results to find them here.</p>
+                    <button class="btn btn-primary" onclick="navigateTo('assistant')">Start Learning</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SETTINGS ===== -->
+    <section class="page-section" id="page-settings">
+        <div class="container" style="padding-top: 20px;">
+            <div class="section-header">
+                <h1>⚙️ Settings</h1>
+                <p>Configure your learning experience and API integrations</p>
+            </div>
+
+            <div class="settings-layout">
+                <div class="settings-nav card" style="padding: 16px; height: fit-content;">
+                    <button class="settings-nav-item active" onclick="showSettingsTab('profile', this)">👤 Profile</button>
+                    <button class="settings-nav-item" onclick="showSettingsTab('appearance', this)">🎨 Appearance</button>
+                    <button class="settings-nav-item" onclick="showSettingsTab('api', this)">🔑 API Configuration</button>
+                    <button class="settings-nav-item" onclick="showSettingsTab('data', this)">💾 Data Management</button>
+                </div>
+
+                <div>
+                    <!-- Profile -->
+                    <div class="settings-section active" id="settings-profile">
+                        <div class="card">
+                            <div class="settings-group">
+                                <h3>Profile Information</h3>
+                                <div class="input-group" style="margin-bottom: 16px;">
+                                    <label>Display Name</label>
+                                    <input type="text" class="input" id="settingName" placeholder="Student" value="">
+                                </div>
+                                <div class="input-group" style="margin-bottom: 16px;">
+                                    <label>Education Level</label>
+                                    <select class="select" id="settingLevel">
+                                        <option value="high-school">High School</option>
+                                        <option value="undergraduate" selected>Undergraduate</option>
+                                        <option value="postgraduate">Postgraduate</option>
+                                        <option value="self-learner">Self Learner</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 16px;">
+                                    <label>Preferred Subjects (comma-separated)</label>
+                                    <input type="text" class="input" id="settingSubjects" placeholder="Mathematics, Physics, CS">
+                                </div>
+                                <button class="btn btn-primary" onclick="saveProfile()">Save Profile</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Appearance -->
+                    <div class="settings-section" id="settings-appearance">
+                        <div class="card">
+                            <div class="settings-group">
+                                <h3>Theme & Display</h3>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Dark Mode</h4>
+                                        <p>Toggle between dark and light themes</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" id="darkModeToggle" checked onchange="toggleTheme()">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Animations</h4>
+                                        <p>Enable or disable UI animations</p>
+                                    </div>
+                                    <label class="toggle">
+                                        <input type="checkbox" checked id="animationsToggle">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API -->
+                    <div class="settings-section" id="settings-api">
+                        <div class="card">
+                            <div class="settings-group">
+                                <h3>API Configuration</h3>
+                                <p style="color: var(--text-secondary); margin-bottom: 20px; font-size: 0.9rem;">
+                                    Configure API keys to enable real AI-powered features. Keys are stored locally in your browser and never sent to our servers.
+                                </p>
+                                <div class="input-group" style="margin-bottom: 20px;">
+                                    <label>AI API Provider</label>
+                                    <select class="select" id="aiProvider">
+                                        <option value="demo">Demo Mode (No API)</option>
+                                        <option value="openai">OpenAI (GPT)</option>
+                                        <option value="gemini">Google Gemini</option>
+                                        <option value="anthropic">Anthropic Claude</option>
+                                    </select>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 20px;">
+                                    <label>AI API Key</label>
+                                    <input type="password" class="input" id="aiApiKey" placeholder="sk-... or API key">
+                                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">⚠️ Stored only in your browser's localStorage. Never shared.</p>
+                                </div>
+                                <div class="input-group" style="margin-bottom: 20px;">
+                                    <label>OCR Service (for Smart Scan)</label>
+                                    <select class="select" id="ocrProvider">
+                                        <option value="demo">Demo Mode</option>
+                                        <option value="tesseract">Tesseract.js (Browser-based)</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="saveApiSettings()">Save API Settings</button>
+                                <button class="btn btn-ghost" style="margin-left: 8px;" onclick="testApiConnection()">🔄 Test Connection</button>
+                            </div>
+
+                            <div class="settings-group" style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-color);">
+                                <h3>📋 Setup Guide</h3>
+                                <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                                    <p><strong>To enable real AI responses:</strong></p>
+                                    <ol style="padding-left: 20px; margin-top: 8px;">
+                                        <li>Choose your AI provider above</li>
+                                        <li>Get an API key from the provider's website</li>
+                                        <li>Paste the key in the API Key field</li>
+                                        <li>Click "Save API Settings"</li>
+                                        <li>Click "Test Connection" to verify</li>
+                                    </ol>
+                                    <p style="margin-top: 16px;"><strong>Environment Variables (for deployment):</strong></p>
+                                    <pre style="background: var(--bg-primary); padding: 12px; border-radius: var(--radius-sm); margin-top: 8px; font-size: 0.8rem;">
+VIDYARA_AI_PROVIDER=openai
+VIDYARA_AI_API_KEY=sk-your-key-here
+VIDYARA_OCR_PROVIDER=tesseract</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data -->
+                    <div class="settings-section" id="settings-data">
+                        <div class="card">
+                            <div class="settings-group">
+                                <h3>Data Management</h3>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Export Data</h4>
+                                        <p>Download all your saved data as JSON</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-secondary" onclick="exportData()">📥 Export</button>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Clear All Data</h4>
+                                        <p>Remove all saved progress, notes, and quiz results</p>
+                                    </div>
+                                    <button class="btn btn-sm btn-danger" onclick="clearAllData()">🗑️ Clear Data</button>
+                                </div>
+                                <div class="setting-row">
+                                    <div class="setting-info">
+                                        <h4>Storage Used</h4>
+                                        <p id="storageUsed">Calculating...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== APPLICATION STATE =====
+        const AppState = {
+            currentPage: 'landing',
+            theme: localStorage.getItem('vidyara_theme') || 'dark',
+            difficulty: 'beginner',
+            quizMode: 'practice',
+            currentQuiz: null,
+            currentQuizIndex: 0,
+            quizAnswers: [],
+            conversations: [],
+            currentConversation: [],
+            uploadedFile: null,
+            apiConfig: (() => { try { return JSON.parse(localStorage.getItem('vidyara_api') || '{"provider":"demo","key":"","ocr":"demo"}'); } catch { return { provider: 'demo', key: '', ocr: 'demo' }; } })(),
+            userData: (() => { try { return JSON.parse(localStorage.getItem('vidyara_user') || '{"name":"Student","level":"undergraduate","subjects":"","topicsStudied":[],"quizResults":[],"bookmarks":[],"savedNotes":[],"roadmaps":[],"streak":0,"lastActive":"","totalStudyTopics":0}'); } catch { return { name: 'Student', level: 'undergraduate', subjects: '', topicsStudied: [], quizResults: [], bookmarks: [], savedNotes: [], roadmaps: [], streak: 0, lastActive: '', totalStudyTopics: 0 }; } })(),
+        };
+
+        // ===== INITIALIZATION =====
+        function init() {
+            applyTheme(AppState.theme);
+            updateStreak();
+            generateParticles();
+            calculateStorage();
+            loadUserProfile();
+            updateDashboard();
+            renderBookmarks();
+
+            // Restore saved roadmaps
+            if (AppState.userData.roadmaps.length > 0) {
+                // Will render on demand
+            }
+        }
+
+        // ===== NAVIGATION =====
+        function navigateTo(page) {
+            document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+            const section = document.getElementById('page-' + page);
+            if (section) {
+                section.classList.add('active');
+                section.style.animation = 'none';
+                section.offsetHeight;
+                section.style.animation = 'fadeIn 0.4s ease';
+            }
+
+            document.querySelectorAll(`.nav-link[data-page="${page}"]`).forEach(l => l.classList.add('active'));
+            AppState.currentPage = page;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (page === 'dashboard') updateDashboard();
+            if (page === 'bookmarks') renderBookmarks();
+        }
+
+        function startLearning(topic) {
+            navigateTo('assistant');
+            document.getElementById('chatInput').value = `Explain ${topic}`;
+            sendMessage();
+        }
+
+        // ===== MOBILE MENU =====
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const btn = document.getElementById('hamburgerBtn');
+            menu.classList.toggle('active');
+            btn.classList.toggle('active');
+            btn.setAttribute('aria-expanded', menu.classList.contains('active') ? 'true' : 'false');
+        }
+
+        // ===== THEME =====
+        function toggleTheme() {
+            const newTheme = AppState.theme === 'dark' ? 'light' : 'dark';
+            applyTheme(newTheme);
+        }
+
+        function applyTheme(theme) {
+            AppState.theme = theme;
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('vidyara_theme', theme);
+            const toggle = document.getElementById('darkModeToggle');
+            if (toggle) toggle.checked = theme === 'dark';
+            const themeBtn = document.querySelector('.theme-toggle');
+            if (themeBtn) themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // ===== PARTICLES =====
+        function generateParticles() {
+            const container = document.getElementById('particles');
+            if (!container) return;
+            for (let i = 0; i < 30; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDelay = Math.random() * 15 + 's';
+                p.style.animationDuration = (10 + Math.random() * 15) + 's';
+                p.style.width = (2 + Math.random() * 4) + 'px';
+                p.style.height = p.style.width;
+                p.style.background = ['#7c3aed', '#3b82f6', '#06b6d4', '#ec4899'][Math.floor(Math.random() * 4)];
+                container.appendChild(p);
+            }
+        }
+
+        // ===== TOAST NOTIFICATIONS =====
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const icons = { success: '✅', error: '❌', warning: '⚠️', info: 'ℹ️' };
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <span>${icons[type]}</span>
+                <span>${message}</span>
+                <button class="toast-close" onclick="this.parentElement.remove()">✕</button>
+            `;
+            container.appendChild(toast);
+            setTimeout(() => { if (toast.parentElement) toast.remove(); }, 4000);
+        }
+
+        // ===== SAVE HELPERS =====
+        function saveUserData() {
+            localStorage.setItem('vidyara_user', JSON.stringify(AppState.userData));
+        }
+
+        function addActivity(type, title, detail) {
+            if (!AppState.userData.topicsStudied) AppState.userData.topicsStudied = [];
+            AppState.userData.topicsStudied.unshift({
+                type, title, detail, date: new Date().toISOString()
+            });
+            if (AppState.userData.topicsStudied.length > 50) AppState.userData.topicsStudied.length = 50;
+            AppState.userData.totalStudyTopics = (AppState.userData.totalStudyTopics || 0) + 1;
+            saveUserData();
+        }
+
+        function updateStreak() {
+            const today = new Date().toDateString();
+            if (AppState.userData.lastActive !== today) {
+                const yesterday = new Date(Date.now() - 86400000).toDateString();
+                if (AppState.userData.lastActive === yesterday) {
+                    AppState.userData.streak = (AppState.userData.streak || 0) + 1;
+                } else if (AppState.userData.lastActive !== today) {
+                    AppState.userData.streak = 1;
+                }
+                AppState.userData.lastActive = today;
+                saveUserData();
+            }
+        }
+
+        // ===== DASHBOARD =====
+        function updateDashboard() {
+            const ud = AppState.userData;
+            document.getElementById('statTopics').textContent = ud.totalStudyTopics || 0;
+            document.getElementById('statQuizzes').textContent = (ud.quizResults || []).length;
+
+            const scores = (ud.quizResults || []).map(r => r.score);
+            const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+            document.getElementById('statAvgScore').textContent = avg + '%';
+
+            document.getElementById('statStreak').textContent = ud.streak || 0;
+            document.getElementById('streakNumber').textContent = ud.streak || 0;
+
+            // Streak days
+            const streakDays = document.getElementById('streakDays');
+            const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+            const today = new Date().getDay();
+            streakDays.innerHTML = days.map((d, i) => {
+                const isActive = i <= today && (ud.streak || 0) >= (today - i + 1);
+                return `<div class="streak-day ${isActive ? 'active' : 'inactive'}">${d}</div>`;
+            }).join('');
+
+            // Recent activity
+            const recentDiv = document.getElementById('recentActivity');
+            const recent = (ud.topicsStudied || []).slice(0, 5);
+            if (recent.length === 0) {
+                recentDiv.innerHTML = '<div class="empty-state" style="padding: 24px;"><p style="margin: 0;">No recent activity. Start learning!</p></div>';
+            } else {
+                const icons = { ai: '🤖', quiz: '📝', scan: '📸', visualize: '🎬', roadmap: '🗺️' };
+                const colors = { ai: 'rgba(124,58,237,0.15)', quiz: 'rgba(16,185,129,0.15)', scan: 'rgba(59,130,246,0.15)', visualize: 'rgba(6,182,212,0.15)', roadmap: 'rgba(236,72,153,0.15)' };
+                recentDiv.innerHTML = recent.map(r => `
+                    <div class="recent-item">
+                        <div class="recent-icon" style="background: ${colors[r.type] || colors.ai}">${icons[r.type] || '📚'}</div>
+                        <div class="recent-info">
+                            <h4>${r.title}</h4>
+                            <p>${r.detail} · ${timeAgo(r.date)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Saved notes in sidebar
+            const notesList = document.getElementById('savedNotesList');
+            const notes = (ud.savedNotes || []).slice(0, 3);
+            if (notes.length === 0) {
+                notesList.innerHTML = '<div class="empty-state" style="padding: 16px;"><p style="margin: 0; font-size: 0.85rem;">No saved notes yet</p></div>';
+            } else {
+                notesList.innerHTML = notes.map(n => `
+                    <div class="recent-item" onclick="navigateTo('bookmarks')">
+                        <div class="recent-icon" style="background: rgba(59,130,246,0.15);">📝</div>
+                        <div class="recent-info">
+                            <h4>${n.title}</h4>
+                            <p>${timeAgo(n.date)}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Welcome name
+            const nameEl = document.querySelector('#page-dashboard h1');
+            if (nameEl) nameEl.textContent = `Welcome back, ${ud.name || 'Student'}! 👋`;
+        }
+
+        function timeAgo(dateStr) {
+            const diff = Date.now() - new Date(dateStr).getTime();
+            const mins = Math.floor(diff / 60000);
+            if (mins < 1) return 'Just now';
+            if (mins < 60) return mins + 'm ago';
+            const hrs = Math.floor(mins / 60);
+            if (hrs < 24) return hrs + 'h ago';
+            const days = Math.floor(hrs / 24);
+            return days + 'd ago';
+        }
+
+        // ===== AI ASSISTANT =====
+        let currentDifficulty = 'beginner';
+
+        function setDifficulty(level, btn) {
+            currentDifficulty = level;
+            document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+
+        function newConversation() {
+            AppState.currentConversation = [];
+            const container = document.getElementById('chatContainer');
+            container.innerHTML = `
+                <div class="chat-message ai">
+                    <div class="chat-avatar">🤖</div>
+                    <div class="chat-bubble">
+                        <h3>New conversation started!</h3>
+                        <p>What would you like to learn about? Ask me anything!</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = '';
+            addUserMessage(message);
+            showTypingIndicator();
+
+            setTimeout(() => {
+                removeTypingIndicator();
+                const response = generateDemoResponse(message, currentDifficulty);
+                addAIMessage(response);
+                addActivity('ai', message.substring(0, 50), `${currentDifficulty} level explanation`);
+                updateStreak();
+            }, 1200 + Math.random() * 800);
+        }
+
+        function askAI(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        function addUserMessage(text) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = 'chat-message user';
+            div.innerHTML = `
+                <div class="chat-avatar">👤</div>
+                <div class="chat-bubble">${escapeHtml(text)}</div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function addAIMessage(html) {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = 'chat-message ai';
+            div.innerHTML = `
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">${html}
+                    <div style="margin-top: 12px; display: flex; gap: 8px;">
+                        <button class="btn btn-sm btn-ghost" onclick="bookmarkExplanation(this)">📑 Save</button>
+                        <button class="btn btn-sm btn-ghost" onclick="copyText(this)">📋 Copy</button>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function showTypingIndicator() {
+            const container = document.getElementById('chatContainer');
+            const div = document.createElement('div');
+            div.className = 'chat-message ai';
+            div.id = 'typingIndicator';
+            div.innerHTML = `
+                <div class="chat-avatar">🤖</div>
+                <div class="chat-bubble">
+                    <div class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        function removeTypingIndicator() {
+            const indicator = document.getElementById('typingIndicator');
+            if (indicator) indicator.remove();
+        }
+
+        function generateDemoResponse(query, level) {
+            const q = query.toLowerCase();
+            const levelLabel = { beginner: '🟢 Beginner', intermediate: '🟡 Intermediate', advanced: '🔴 Advanced' }[level];
+
+            // Demo responses database
+            const responses = {
+                'photosynthesis': {
+                    beginner: `<h3>🌱 Photosynthesis — Simple Explanation</h3>
+                        <span class="badge badge-success">${levelLabel}</span>
+                        <p style="margin-top: 12px;">Photosynthesis is how <strong>plants make their own food</strong> using sunlight!</p>
+                        <h4>🔑 Key Points:</h4>
+                        <ul>
+                            <li>Plants take in <strong>carbon dioxide (CO₂)</strong> from the air</li>
+                            <li>They absorb <strong>water (H₂O)</strong> from the soil through roots</li>
+                            <li><strong>Sunlight</strong> provides energy to combine them</li>
+                            <li>The result is <strong>glucose (sugar)</strong> for food and <strong>oxygen (O₂)</strong> released into the air</li>
+                        </ul>
+                        <h4>📝 Formula:</h4>
+                        <pre>6CO₂ + 6H₂O + Light Energy → C₆H₁₂O₆ + 6O₂</pre>
+                        <h4>💡 Think of it as:</h4>
+                        <p>A plant is like a tiny kitchen that uses sunlight as its stove to cook food from air and water!</p>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ This is sample educational content for demonstration purposes.</p>`,
+                    intermediate: `<h3>🌱 Photosynthesis — Intermediate Explanation</h3>
+                        <span class="badge badge-warning">${levelLabel}</span>
+                        <p style="margin-top: 12px;">Photosynthesis is a complex biochemical process occurring in chloroplasts of plant cells.</p>
+                        <h4>Two Main Stages:</h4>
+                        <ul>
+                            <li><strong>Light-dependent reactions</strong> (in thylakoid membranes): Water molecules are split using light energy, producing ATP, NADPH, and O₂</li>
+                            <li><strong>Calvin Cycle / Light-independent reactions</strong> (in stroma): CO₂ is fixed into glucose using the ATP and NADPH from stage 1</li>
+                        </ul>
+                        <h4>Important Molecules:</h4>
+                        <ul>
+                            <li><strong>Chlorophyll</strong> — absorbs light (mainly red and blue wavelengths)</li>
+                            <li><strong>ATP</strong> — energy currency</li>
+                            <li><strong>NADPH</strong> — electron carrier</li>
+                            <li><strong>RuBisCO</strong> — key enzyme in carbon fixation</li>
+                        </ul>
+                        <h4>Overall Equation:</h4>
+                        <pre>6CO₂ + 12H₂O + Light → C₆H₁₂O₆ + 6O₂ + 6H₂O</pre>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ This is sample educational content for demonstration purposes.</p>`,
+                    advanced: `<h3>🌱 Photosynthesis — Advanced Analysis</h3>
+                        <span class="badge badge-error">${levelLabel}</span>
+                        <p style="margin-top: 12px;">Photosynthesis involves complex photochemical and enzymatic reactions across two photosystems.</p>
+                        <h4>Detailed Mechanism:</h4>
+                        <ul>
+                            <li><strong>Photosystem II (P680):</strong> Absorbs photons at 680nm, oxidizes water via the OEC (Oxygen Evolving Complex), producing O₂, H⁺, and electrons</li>
+                            <li><strong>Electron Transport Chain:</strong> Electrons pass through plastoquinone → cytochrome b6f → plastocyanin, creating a proton gradient for chemiosmotic ATP synthesis</li>
+                            <li><strong>Photosystem I (P700):</strong> Absorbs at 700nm, reduces ferredoxin, which reduces NADP⁺ to NADPH via ferredoxin-NADP⁺ reductase</li>
+                            <li><strong>Calvin Cycle:</strong> RuBisCO catalyzes carboxylation of RuBP (5C) → 2x 3-PGA (3C), reduced to G3P using ATP/NADPH, regenerating RuBP</li>
+                        </ul>
+                        <h4>C4 and CAM Adaptations:</h4>
+                        <ul>
+                            <li><strong>C4:</strong> Spatial separation — mesophyll cells fix CO₂ as OAA via PEP carboxylase, shuttle to bundle sheath cells for Calvin Cycle</li>
+                            <li><strong>CAM:</strong> Temporal separation — CO₂ fixed at night, Calvin Cycle runs during the day</li>
+                        </ul>
+                        <h4>Quantum Yield:</h4>
+                        <p>Minimum 8 photons required per O₂ evolved (4 per photosystem × 2 photosystems). Theoretical max efficiency ≈ 11%.</p>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ This is sample educational content for demonstration purposes.</p>`
+                },
+                'newton': {
+                    beginner: `<h3>⚡ Newton's Laws of Motion — Simple</h3>
+                        <span class="badge badge-success">${levelLabel}</span>
+                        <h4>Law 1 — Law of Inertia:</h4>
+                        <p>An object stays still or keeps moving unless a force acts on it. A ball won't move unless you kick it!</p>
+                        <h4>Law 2 — F = ma:</h4>
+                        <p>Force equals mass times acceleration. Push harder = faster acceleration. Heavier object = harder to push.</p>
+                        <h4>Law 3 — Action-Reaction:</h4>
+                        <p>Every action has an equal and opposite reaction. When you push a wall, it pushes back on you!</p>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`,
+                    intermediate: `<h3>⚡ Newton's Laws — Intermediate</h3><span class="badge badge-warning">${levelLabel}</span>
+                        <h4>First Law (Inertia):</h4><p>∑F = 0 implies constant velocity. Objects resist changes to their state of motion proportional to their mass.</p>
+                        <h4>Second Law:</h4><p><code>∑F = ma</code> — Net force on an object equals its mass multiplied by acceleration. This is a vector equation applicable in each direction independently.</p>
+                        <h4>Third Law:</h4><p><code>F₁₂ = -F₂₁</code> — Forces always exist in pairs. Important: these forces act on different objects, not the same one.</p>
+                        <h4>Applications:</h4><ul><li>Free body diagrams</li><li>Friction: f = μN</li><li>Tension in ropes</li><li>Normal forces</li></ul>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`,
+                    advanced: `<h3>⚡ Newton's Laws — Advanced</h3><span class="badge badge-error">${levelLabel}</span>
+                        <p>Newton's laws form the foundation of classical mechanics but have limitations addressed by relativistic and quantum mechanics.</p>
+                        <h4>Generalized Form:</h4><pre>F = dp/dt (where p = mv is momentum)</pre>
+                        <p>This form handles variable mass systems (rockets) where F = ma is insufficient.</p>
+                        <h4>Non-inertial Frames:</h4><p>In accelerating frames, pseudo-forces appear: Coriolis force, centrifugal force. Newton's laws require modification: F_eff = F_real + F_pseudo</p>
+                        <h4>Lagrangian Reformulation:</h4><pre>L = T - V; d/dt(∂L/∂q̇) - ∂L/∂q = 0</pre>
+                        <p>Euler-Lagrange equations provide equivalent dynamics using generalized coordinates, often more elegant for constrained systems.</p>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`
+                },
+                'data structure': {
+                    beginner: `<h3>💻 Data Structures — Simple</h3><span class="badge badge-success">${levelLabel}</span>
+                        <p>Data structures are ways to organize and store data in a computer so it can be used efficiently.</p>
+                        <h4>Common Types:</h4>
+                        <ul>
+                            <li><strong>Array:</strong> A list of items stored in order, like a row of lockers</li>
+                            <li><strong>Stack:</strong> Like a stack of plates — last in, first out (LIFO)</li>
+                            <li><strong>Queue:</strong> Like a line at a store — first in, first out (FIFO)</li>
+                            <li><strong>Linked List:</strong> Items connected like a chain, each pointing to the next</li>
+                            <li><strong>Tree:</strong> Data arranged like a family tree — branching structure</li>
+                        </ul>
+                        <h4>Why They Matter:</h4>
+                        <p>Choosing the right data structure makes your program faster and uses less memory!</p>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`,
+                    intermediate: `<h3>💻 Data Structures — Intermediate</h3><span class="badge badge-warning">${levelLabel}</span>
+                        <h4>Time Complexity Comparison:</h4>
+                        <pre>Array:       Access O(1), Search O(n), Insert O(n)
+Linked List: Access O(n), Search O(n), Insert O(1)
+Hash Table:  Access O(1), Search O(1), Insert O(1) avg
+BST:         Access O(log n), Search O(log n)
+Heap:        Insert O(log n), Extract-Min O(log n)</pre>
+                        <h4>Key Concepts:</h4>
+                        <ul><li>Hash collisions and resolution strategies</li><li>Balanced vs unbalanced BSTs</li><li>Graph representations: adjacency list vs matrix</li><li>Amortized analysis for dynamic arrays</li></ul>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`,
+                    advanced: `<h3>💻 Data Structures — Advanced</h3><span class="badge badge-error">${levelLabel}</span>
+                        <h4>Advanced Structures:</h4>
+                        <ul><li><strong>Red-Black Trees:</strong> Self-balancing BST with O(log n) guaranteed operations</li>
+                        <li><strong>B-Trees:</strong> Used in databases/filesystems for disk-optimized storage</li>
+                        <li><strong>Trie:</strong> Prefix tree for efficient string operations</li>
+                        <li><strong>Segment Tree:</strong> Range queries in O(log n)</li>
+                        <li><strong>Disjoint Set Union (DSU):</strong> Near O(1) union-find with path compression + union by rank</li></ul>
+                        <p style="margin-top: 8px; font-size: 0.8rem; color: var(--text-muted);">⚠️ Sample content for demonstration.</p>`
+                }
+            };
+
+            // Find matching response
+            for (const [key, vals] of Object.entries(responses)) {
+                if (q.includes(key)) {
+                    return vals[level] || vals.beginner;
+                }
+            }
+
+            // Generic response
+            const topic = query.length > 60 ? query.substring(0, 60) + '...' : query;
+            return `<h3>📚 ${escapeHtml(query)}</h3>
+                <span class="badge badge-info">${levelLabel}</span>
+                <p style="margin-top: 12px;">This is a <strong>demo response</strong> for the topic: <em>"${escapeHtml(topic)}"</em></p>
+                <h4>What would happen with a real AI API:</h4>
+                <ul>
+                    <li>A comprehensive explanation tailored to the ${level} level</li>
+                    <li>Key definitions and important concepts</li>
+                    <li>Real-world examples and analogies</li>
+                    <li>Step-by-step breakdowns of complex ideas</li>
+                    <li>Practice questions and summaries</li>
+                </ul>
+                <h4>📌 To enable real AI responses:</h4>
+                <p>Go to <strong>Settings → API Configuration</strong> and add your API key from OpenAI, Google Gemini, or Anthropic.</p>
+                <h4>💡 Quick Summary (Sample):</h4>
+                <p>This topic is fundamental to understanding the broader subject area. Key aspects include foundational principles, practical applications, and connections to related concepts. A deeper study would reveal the underlying mechanisms and their significance.</p>
+                <p style="margin-top: 12px; font-size: 0.8rem; color: var(--text-muted);">⚠️ This is a demo response. Content is illustrative, not AI-generated. Configure an API key for real explanations.</p>`;
+        }
+
+        function bookmarkExplanation(btn) {
+            const bubble = btn.closest('.chat-bubble');
+            const content = bubble.querySelector('h3')?.textContent || 'Saved Explanation';
+            const bookmark = {
+                id: Date.now(),
+                type: 'explanations',
+                title: content,
+                content: bubble.innerHTML,
+                date: new Date().toISOString()
+            };
+            AppState.userData.bookmarks.push(bookmark);
+            saveUserData();
+            showToast('Explanation saved to bookmarks!', 'success');
+        }
+
+        function copyText(btn) {
+            const bubble = btn.closest('.chat-bubble');
+            const text = bubble.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Copied to clipboard!', 'success');
+            }).catch(() => {
+                showToast('Failed to copy', 'error');
+            });
+        }
+
+        // ===== NOTES SCANNER =====
+        function handleFileUpload(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const maxSize = 10 * 1024 * 1024;
+            const allowed = ['image/jpeg','image/png','image/webp','text/plain','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            if (file.size > maxSize) {
+                showToast('File is larger than 10 MB. Please choose a smaller file.', 'error');
+                e.target.value = '';
+                return;
+            }
+            if (file.type && !allowed.includes(file.type)) {
+                showToast('Unsupported file type. Use JPG, PNG, WEBP, PDF, DOC, DOCX, or TXT.', 'error');
+                e.target.value = '';
+                return;
+            }
+
+            if (file.size > 10 * 1024 * 1024) {
+                showToast('File too large. Max 10MB.', 'error');
+                return;
+            }
+
+            AppState.uploadedFile = file;
+            const preview = document.getElementById('previewContainer');
+            const previewContent = document.getElementById('previewContent');
+            preview.classList.remove('hidden');
+
+            if (file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    previewContent.innerHTML = `<img src="${ev.target.result}" class="preview-image" alt="Uploaded notes">
+                        <p style="margin-top: 8px; color: var(--text-secondary);">${file.name} (${(file.size / 1024).toFixed(1)} KB)</p>`;
+                };
+                reader.readAsDataURL(file);
+            } else if (file.type === 'text/plain') {
+                const reader = new FileReader();
+                reader.onload = function (ev) {
+                    previewContent.innerHTML = `<div style="text-align: left; max-height: 200px; overflow-y: auto; padding: 16px; background: var(--bg-primary); border-radius: var(--radius-sm); font-size: 0.9rem;">${escapeHtml(ev.target.result)}</div>
+                        <p style="margin-top: 8px; color: var(--text-secondary);">${file.name}</p>`;
+                };
+                reader.readAsText(file);
+            } else {
+                previewContent.innerHTML = `<div style="font-size: 3rem; margin-bottom: 8px;">📄</div>
+                    <p>${file.name} (${(file.size / 1024).toFixed(1)} KB)</p>`;
+            }
+        }
+
+        function clearUpload() {
+            AppState.uploadedFile = null;
+            document.getElementById('previewContainer').classList.add('hidden');
+            document.getElementById('scanResults').classList.add('hidden');
+            document.getElementById('scanLoading').classList.add('hidden');
+            document.getElementById('uploadZone').classList.remove('hidden');
+            document.getElementById('fileInput').value = '';
+        }
+
+        function processFile() {
+            if (!AppState.uploadedFile) {
+                showToast('No file selected', 'error');
+                return;
+            }
+
+            document.getElementById('previewContainer').classList.add('hidden');
+            document.getElementById('uploadZone').classList.add('hidden');
+            document.getElementById('scanLoading').classList.remove('hidden');
+
+            setTimeout(() => {
+                document.getElementById('scanLoading').classList.add('hidden');
+                showScanResults();
+            }, 2500);
+        }
+
+        function showScanResults() {
+            const results = document.getElementById('scanResults');
+            results.classList.remove('hidden');
+
+            // Sample extracted text — clearly labeled as demo
+            const sampleText = `Cell Biology - Chapter 4 Notes
+
+The cell is the basic structural and functional unit of all living organisms. Cells can be classified as prokaryotic or eukaryotic.
+
+Key Organelles:
+1. Nucleus - Contains DNA, controls cell activities
+2. Mitochondria - Powerhouse of the cell, produces ATP through cellular respiration
+3. Endoplasmic Reticulum (ER) - Smooth ER: lipid synthesis; Rough ER: protein synthesis
+4. Golgi Apparatus - Packages and modifies proteins for secretion
+5. Ribosomes - Sites of protein synthesis
+6. Cell Membrane - Selectively permeable phospholipid bilayer
+
+Important Formulas:
+- Cell Division: Mitosis (2n → 2n) and Meiosis (2n → n)
+- Surface Area to Volume ratio determines cell size limits`;
+
+            document.getElementById('extractedText').innerHTML = `<p style="font-size: 0.8rem; color: var(--warning); margin-bottom: 8px;">⚠️ Demo Mode: This is sample extracted text for demonstration. Real OCR would extract text from your uploaded image.</p>${escapeHtml(sampleText)}`;
+
+            document.getElementById('scanSummary').innerHTML = `
+                <p style="font-size: 0.8rem; color: var(--warning); margin-bottom: 8px;">⚠️ Sample summary for demonstration</p>
+                <p>This chapter covers the fundamentals of cell biology, focusing on cell structure and organelle functions. Key topics include the distinction between prokaryotic and eukaryotic cells, the roles of major organelles (nucleus, mitochondria, ER, Golgi apparatus), and important concepts like cell division and the surface area to volume ratio.</p>
+                <h4 style="margin-top: 12px;">📌 Main Takeaways:</h4>
+                <ul>
+                    <li>Cells are the fundamental unit of life</li>
+                    <li>Mitochondria produce ATP — the cell's energy currency</li>
+                    <li>The cell membrane controls what enters and exits the cell</li>
+                    <li>DNA in the nucleus controls all cell activities</li>
+                </ul>`;
+
+            document.getElementById('keyConcepts').innerHTML = `
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    <span class="badge badge-primary">Prokaryotic vs Eukaryotic</span>
+                    <span class="badge badge-primary">Mitochondria — ATP Production</span>
+                    <span class="badge badge-primary">Cell Membrane — Phospholipid Bilayer</span>
+                    <span class="badge badge-primary">Nucleus — DNA Control Center</span>
+                    <span class="badge badge-primary">Mitosis vs Meiosis</span>
+                    <span class="badge badge-primary">Golgi Apparatus</span>
+                    <span class="badge badge-primary">Endoplasmic Reticulum</span>
+                    <span class="badge badge-info">SA:V Ratio</span>
+                </div>`;
+
+            document.getElementById('practiceQuestions').innerHTML = `
+                <p style="font-size: 0.8rem; color: var(--warning); margin-bottom: 12px;">⚠️ Sample questions for demonstration</p>
+                <ol style="padding-left: 20px; line-height: 2;">
+                    <li>What is the function of mitochondria in a cell?</li>
+                    <li>Differentiate between prokaryotic and eukaryotic cells.</li>
+                    <li>Explain the structure of the cell membrane.</li>
+                    <li>What is the difference between mitosis and meiosis?</li>
+                    <li>Why does the surface area to volume ratio limit cell size?</li>
+                </ol>`;
+
+            addActivity('scan', 'Notes Scanned', 'Cell Biology notes processed');
+        }
+
+        function downloadScanResults() {
+            const text = document.getElementById('extractedText').innerText;
+            const summary = document.getElementById('scanSummary').innerText;
+            const content = `VIDYARA AI — Smart Scan Results\n${'='.repeat(40)}\n\nExtracted Text:\n${text}\n\nSummary:\n${summary}\n\nGenerated: ${new Date().toLocaleString()}`;
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vidyara-scan-results.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Notes downloaded!', 'success');
+        }
+
+        function saveScanResults() {
+            const note = {
+                id: Date.now(),
+                title: 'Scanned Notes — ' + (AppState.uploadedFile?.name || 'Unknown'),
+                content: document.getElementById('scanSummary').innerText,
+                date: new Date().toISOString(),
+                type: 'notes'
+            };
+            const alreadySaved = AppState.userData.savedNotes.some(n => n.title === note.title && n.content === note.content);
+            if (alreadySaved) {
+                showToast('These notes are already saved.', 'info');
+                return;
+            }
+            AppState.userData.savedNotes.push(note);
+            AppState.userData.bookmarks.push({ ...note, type: 'notes' });
+            saveUserData();
+            showToast('Notes saved to dashboard!', 'success');
+        }
+
+        // Drag & drop
+        const uploadZone = document.getElementById('uploadZone');
+        if (uploadZone) {
+            uploadZone.addEventListener('dragover', (e) => { e.preventDefault(); uploadZone.classList.add('dragover'); });
+            uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.classList.remove('dragover');
+                if (e.dataTransfer.files.length) {
+                    document.getElementById('fileInput').files = e.dataTransfer.files;
+                    handleFileUpload({ target: { files: e.dataTransfer.files } });
+                }
+            });
+        }
+
+        // ===== CONCEPT VISUALIZER =====
+        function generateVisualization() {
+            const topic = document.getElementById('conceptInput').value.trim();
+            if (!topic) {
+                showToast('Please enter a topic to visualize', 'warning');
+                return;
+            }
+
+            document.getElementById('vizLoading').classList.remove('hidden');
+            document.getElementById('storyboardContainer').classList.add('hidden');
+
+            setTimeout(() => {
+                document.getElementById('vizLoading').classList.add('hidden');
+                renderStoryboard(topic);
+                addActivity('visualize', topic, 'Visual storyboard generated');
+            }, 2000);
+        }
+
+        function renderStoryboard(topic) {
+            const container = document.getElementById('storyboardContainer');
+            container.classList.remove('hidden');
+
+            const storyboards = getStoryboardData(topic);
+
+            container.innerHTML = `
+                <div style="text-align: center; margin-bottom: 32px;">
+                    <h2 style="font-size: 1.8rem;">🎬 Visual Explanation: ${escapeHtml(topic)}</h2>
+                    <p style="color: var(--text-secondary);">Interactive storyboard with ${storyboards.length} scenes</p>
+                    <p style="color: var(--warning); font-size: 0.8rem; margin-top: 8px;">⚠️ Visualizations use SVG/CSS animations and are sample educational demonstrations</p>
+                </div>
+                ${storyboards.map((scene, i) => `
+                    <div class="card scene-card fade-up" style="animation-delay: ${i * 0.15}s;">
+                        <div class="scene-visual">${scene.svg}</div>
+                        <div class="scene-info">
+                            <span class="scene-num">Scene ${i + 1} of ${storyboards.length}</span>
+                            <h3>${scene.title}</h3>
+                            <p>${scene.description}</p>
+                            <div class="narration">🎙️ "${scene.narration}"</div>
+                        </div>
+                    </div>
+                `).join('')}
+                <div style="text-align: center; margin-top: 32px;">
+                    <button class="btn btn-primary" onclick="bookmarkVisualization('${escapeHtml(topic)}')">📑 Save Storyboard</button>
+                    <button class="btn btn-secondary" style="margin-left: 12px;" onclick="document.getElementById('storyboardContainer').classList.add('hidden'); document.getElementById('conceptInput').value = '';">New Topic</button>
+                </div>
+            `;
+
+            // Trigger fade-up animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-up').forEach(el => el.classList.add('visible'));
+            }, 100);
+        }
+
+        function getStoryboardData(topic) {
+            const t = topic.toLowerCase();
+
+            if (t.includes('water cycle') || t.includes('hydrological')) {
+                return [
+                    {
+                        title: 'Evaporation',
+                        description: 'The sun heats water in oceans, lakes, and rivers. Water molecules gain energy and escape into the atmosphere as water vapor.',
+                        narration: 'The water cycle begins with the sun warming bodies of water, causing evaporation.',
+                        svg: `<svg viewBox="0 0 300 200"><defs><linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#1e3a5f"/><stop offset="100%" style="stop-color:#87CEEB"/></linearGradient></defs><rect fill="url(#sky)" width="300" height="120"/><rect fill="#2196F3" y="120" width="300" height="80" rx="0"/><circle cx="250" cy="40" r="30" fill="#FFD700" opacity="0.9"><animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite"/></circle><g><circle cx="80" cy="110" r="4" fill="rgba(255,255,255,0.6)"><animate attributeName="cy" values="110;40;110" dur="4s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.8;0;0.8" dur="4s" repeatCount="indefinite"/></circle><circle cx="120" cy="110" r="3" fill="rgba(255,255,255,0.6)"><animate attributeName="cy" values="110;50;110" dur="3.5s" repeatCount="indefinite" begin="0.5s"/><animate attributeName="opacity" values="0.8;0;0.8" dur="3.5s" repeatCount="indefinite" begin="0.5s"/></circle><circle cx="160" cy="110" r="4" fill="rgba(255,255,255,0.6)"><animate attributeName="cy" values="110;35;110" dur="4.2s" repeatCount="indefinite" begin="1s"/><animate attributeName="opacity" values="0.8;0;0.8" dur="4.2s" repeatCount="indefinite" begin="1s"/></circle></g><text x="150" y="190" text-anchor="middle" fill="white" font-size="12" font-weight="bold">OCEAN</text></svg>`
+                    },
+                    {
+                        title: 'Condensation & Cloud Formation',
+                        description: 'As water vapor rises and cools, it condenses around tiny particles in the atmosphere, forming clouds.',
+                        narration: 'Rising water vapor cools at higher altitudes and condenses into tiny droplets, creating the clouds we see in the sky.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#87CEEB" width="300" height="200"/><g transform="translate(100, 60)"><ellipse cx="50" cy="40" rx="60" ry="25" fill="white" opacity="0.9"/><ellipse cx="30" cy="30" rx="35" ry="25" fill="white" opacity="0.9"/><ellipse cx="75" cy="30" rx="35" ry="20" fill="white" opacity="0.9"/><ellipse cx="50" cy="20" rx="30" ry="20" fill="white" opacity="0.9"><animate attributeName="ry" values="20;23;20" dur="4s" repeatCount="indefinite"/></ellipse></g><g><circle cx="60" cy="180" r="3" fill="rgba(255,255,255,0.5)"><animate attributeName="cy" values="180;70" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.6;0" dur="3s" repeatCount="indefinite"/></circle><circle cx="200" cy="180" r="3" fill="rgba(255,255,255,0.5)"><animate attributeName="cy" values="180;60" dur="3.5s" repeatCount="indefinite" begin="0.7s"/><animate attributeName="opacity" values="0.6;0" dur="3.5s" repeatCount="indefinite" begin="0.7s"/></circle></g><text x="150" y="190" text-anchor="middle" fill="#1565C0" font-size="11">Water vapor rises and condenses</text></svg>`
+                    },
+                    {
+                        title: 'Precipitation',
+                        description: 'When water droplets in clouds become heavy enough, they fall as rain, snow, sleet, or hail.',
+                        narration: 'Clouds release water as precipitation when the droplets grow too heavy to remain suspended in the air.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#546E7A" width="300" height="200"/><g transform="translate(50, 20)"><ellipse cx="100" cy="30" rx="90" ry="25" fill="#90A4AE"/><ellipse cx="70" cy="20" rx="50" ry="25" fill="#90A4AE"/><ellipse cx="130" cy="20" rx="50" ry="20" fill="#90A4AE"/><ellipse cx="100" cy="10" rx="40" ry="20" fill="#B0BEC5"/></g><g fill="#64B5F6">${Array.from({length: 12}, (_, i) => `<ellipse cx="${40 + (i % 4) * 70 + Math.random() * 20}" cy="${80 + Math.floor(i / 4) * 40}" rx="2" ry="6"><animate attributeName="cy" values="${80 + Math.floor(i / 4) * 40};200;${80 + Math.floor(i / 4) * 40}" dur="${1.5 + Math.random()}s" repeatCount="indefinite" begin="${Math.random()}s"/></ellipse>`).join('')}</g><rect fill="#4CAF50" y="180" width="300" height="20"/></svg>`
+                    },
+                    {
+                        title: 'Collection & Runoff',
+                        description: 'Water collects in rivers, lakes, and oceans. Some seeps into the ground as groundwater. The cycle then repeats.',
+                        narration: 'Precipitation collects in bodies of water and soaks into the ground, completing the water cycle and beginning it anew.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#E8F5E9" width="300" height="200"/><path d="M0 100 Q75 80 150 100 Q225 120 300 90 L300 200 L0 200 Z" fill="#4CAF50"/><path d="M0 140 Q50 130 100 140 Q150 150 200 135 Q250 125 300 140 L300 200 L0 200 Z" fill="#2196F3" opacity="0.7"/><path d="M50 110 Q80 105 100 115 Q120 125 150 118" stroke="#1976D2" fill="none" stroke-width="2"><animate attributeName="d" values="M50 110 Q80 105 100 115 Q120 125 150 118;M50 112 Q80 108 100 112 Q120 120 150 115;M50 110 Q80 105 100 115 Q120 125 150 118" dur="3s" repeatCount="indefinite"/></path><text x="150" y="30" text-anchor="middle" fill="#2E7D32" font-size="11" font-weight="bold">The cycle continues...</text><text x="250" y="180" text-anchor="middle" fill="white" font-size="10">Collection</text></svg>`
+                    }
+                ];
+            }
+
+            if (t.includes('photosynthesis')) {
+                return [
+                    {
+                        title: 'Light Absorption',
+                        description: 'Chlorophyll in the leaves absorbs sunlight energy, primarily red and blue wavelengths. Green light is reflected, which is why leaves appear green.',
+                        narration: 'The process begins when chlorophyll molecules in the leaf capture photons of light energy.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#1a1a2e" width="300" height="200"/><circle cx="50" cy="40" r="35" fill="#FFD700"><animate attributeName="r" values="33;37;33" dur="2s" repeatCount="indefinite"/></circle><line x1="85" y1="50" x2="170" y2="100" stroke="#FFD700" stroke-width="2" opacity="0.6"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="1.5s" repeatCount="indefinite"/></line><ellipse cx="200" cy="120" rx="60" ry="40" fill="#2E7D32"/><ellipse cx="200" cy="115" rx="55" ry="35" fill="#4CAF50"/><text x="200" y="120" text-anchor="middle" fill="white" font-size="9">Chloroplast</text><text x="200" y="170" text-anchor="middle" fill="#66BB6A" font-size="10">Chlorophyll absorbs light</text></svg>`
+                    },
+                    {
+                        title: 'Water Splitting & CO₂ Intake',
+                        description: 'Roots absorb water from soil. Stomata on leaves take in CO₂. Light energy splits water molecules, releasing oxygen.',
+                        narration: 'The plant draws water from its roots and carbon dioxide from the air through tiny pores called stomata.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#E8F5E9" width="300" height="200"/><rect fill="#795548" x="140" y="80" width="20" height="100"/><ellipse cx="150" cy="60" rx="70" ry="50" fill="#4CAF50"/><text x="80" y="40" fill="#1565C0" font-size="9">CO₂ →</text><text x="200" y="40" fill="#1565C0" font-size="9">← CO₂</text><path d="M150 180 Q130 170 120 185" stroke="#795548" fill="none" stroke-width="3"/><path d="M150 180 Q170 175 180 190" stroke="#795548" fill="none" stroke-width="3"/><text x="100" y="198" fill="#1976D2" font-size="9">H₂O ↑</text><text x="190" y="198" fill="#1976D2" font-size="9">↑ H₂O</text><circle cx="250" cy="30" r="20" fill="#FFD700" opacity="0.8"/></svg>`
+                    },
+                    {
+                        title: 'Glucose Production',
+                        description: 'In the Calvin Cycle, CO₂ is combined with hydrogen from water to produce glucose (C₆H₁₂O₆), the plant\'s food and energy source.',
+                        narration: 'The light energy powers the Calvin Cycle, where carbon dioxide is converted into glucose — the plant\'s food.',
+                        svg: `<svg viewBox="0 0 300 200"><rect fill="#1B5E20" width="300" height="200" rx="10"/><text x="150" y="30" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Calvin Cycle</text><circle cx="150" cy="110" r="60" fill="none" stroke="#66BB6A" stroke-width="2" stroke-dasharray="5,5"><animateTransform attributeName="transform" type="rotate" values="0 150 110;360 150 110" dur="10s" repeatCount="indefinite"/></circle><text x="150" y="90" text-anchor="middle" fill="#A5D6A7" font-size="10">CO₂ + H₂O</text><text x="150" y="115" text-anchor="middle" fill="#FFD700" font-size="14" font-weight="bold">→ C₆H₁₂O₆</text><text x="150" y="140" text-anchor="middle" fill="#A5D6A7" font-size="10">+ O₂</text><text x="150" y="185" text-anchor="middle" fill="#81C784" font-size="9">Glucose = Plant Food!</text></svg>`
+                    }
+                ];
+            }
+
+            // Generic storyboard
+            return [
+                {
+                    title: `Introduction to ${topic}`,
+                    description: `Let's start by understanding the basic concept of ${topic}. This foundation will help us build toward more complex ideas.`,
+                    narration: `Welcome! Today we'll explore ${topic} step by step, starting with the fundamentals.`,
+                    svg: `<svg viewBox="0 0 300 200"><rect fill="#1a1f36" width="300" height="200" rx="10"/><text x="150" y="80" text-anchor="middle" fill="#7c3aed" font-size="16" font-weight="bold">📚</text><text x="150" y="110" text-anchor="middle" fill="white" font-size="13" font-weight="bold">${escapeHtml(topic)}</text><text x="150" y="140" text-anchor="middle" fill="#8892b0" font-size="10">Scene 1: Introduction</text><rect x="60" y="155" width="180" height="4" rx="2" fill="#2a2f4a"/><rect x="60" y="155" width="60" height="4" rx="2" fill="#7c3aed"><animate attributeName="width" values="0;180" dur="3s" repeatCount="indefinite"/></rect></svg>`
+                },
+                {
+                    title: 'Core Concepts',
+                    description: `The key principles of ${topic} involve understanding the relationships between its components and how they interact.`,
+                    narration: `Now let's dive into the core concepts that make ${topic} work.`,
+                    svg: `<svg viewBox="0 0 300 200"><rect fill="#1a1f36" width="300" height="200" rx="10"/><circle cx="150" cy="80" r="30" fill="none" stroke="#3b82f6" stroke-width="2"><animate attributeName="r" values="28;35;28" dur="3s" repeatCount="indefinite"/></circle><circle cx="90" cy="140" r="20" fill="none" stroke="#7c3aed" stroke-width="2"/><circle cx="210" cy="140" r="20" fill="none" stroke="#06b6d4" stroke-width="2"/><line x1="130" y1="105" x2="100" y2="125" stroke="#4a5568" stroke-width="1"/><line x1="170" y1="105" x2="200" y2="125" stroke="#4a5568" stroke-width="1"/><text x="150" y="85" text-anchor="middle" fill="white" font-size="10">Core</text><text x="90" y="145" text-anchor="middle" fill="#a78bfa" font-size="8">Part A</text><text x="210" y="145" text-anchor="middle" fill="#67e8f9" font-size="8">Part B</text></svg>`
+                },
+                {
+                    title: 'Practical Application',
+                    description: `Understanding ${topic} has real-world applications. Let's see how these concepts are applied in practice.`,
+                    narration: `Finally, let's connect theory to practice and see how ${topic} is used in the real world.`,
+                    svg: `<svg viewBox="0 0 300 200"><rect fill="#1a1f36" width="300" height="200" rx="10"/><text x="150" y="50" text-anchor="middle" fill="#10b981" font-size="14">✅ Applied Knowledge</text><rect x="40" y="70" width="220" height="30" rx="6" fill="#1e293b" stroke="#2a2f4a"/><rect x="40" y="70" width="180" height="30" rx="6" fill="rgba(16,185,129,0.2)"/><text x="50" y="90" fill="#34d399" font-size="10">Theory Mastered: 82%</text><rect x="40" y="110" width="220" height="30" rx="6" fill="#1e293b" stroke="#2a2f4a"/><rect x="40" y="110" width="140" height="30" rx="6" fill="rgba(124,58,237,0.2)"/><text x="50" y="130" fill="#a78bfa" font-size="10">Practice: 64%</text><rect x="40" y="150" width="220" height="30" rx="6" fill="#1e293b" stroke="#2a2f4a"/><rect x="40" y="150" width="200" height="30" rx="6" fill="rgba(59,130,246,0.2)"/><text x="50" y="170" fill="#60a5fa" font-size="10">Understanding: 91%</text></svg>`
+                }
+            ];
+        }
+
+        function bookmarkVisualization(topic) {
+            const bookmark = {
+                id: Date.now(),
+                type: 'explanations',
+                title: `🎬 Visual: ${topic}`,
+                content: `Storyboard visualization for: ${topic}`,
+                date: new Date().toISOString()
+            };
+            AppState.userData.bookmarks.push(bookmark);
+            saveUserData();
+            showToast('Storyboard saved to bookmarks!', 'success');
+        }
+
+        // ===== QUIZ GENERATOR =====
+        let quizMode = 'practice';
+
+        function setQuizMode(mode, btn) {
+            quizMode = mode;
+            document.querySelectorAll('#quizSetup .tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('modeDescription').textContent =
+                mode === 'practice' ? 'Practice: See answers after each question' : 'Exam: See all answers at the end';
+        }
+
+        function startQuiz() {
+            const topic = document.getElementById('quizTopic').value.trim();
+            if (!topic) {
+                showToast('Please enter a topic for the quiz', 'warning');
+                return;
+            }
+
+            const difficulty = document.getElementById('quizDifficulty').value;
+            const count = parseInt(document.getElementById('quizCount').value);
+            const questions = generateQuizQuestions(topic, difficulty, count);
+
+            AppState.currentQuiz = { topic, difficulty, questions, mode: quizMode };
+            AppState.currentQuizIndex = 0;
+            AppState.quizAnswers = new Array(questions.length).fill(null);
+
+            document.getElementById('quizSetup').classList.add('hidden');
+            document.getElementById('quizResults').classList.add('hidden');
+            document.getElementById('quizActive').classList.remove('hidden');
+
+            renderQuizQuestion();
+        }
+
+        function generateQuizQuestions(topic, difficulty, count) {
+            // Sample quiz questions — clearly labeled as sample content
+            const questionBank = [
+                {
+                    type: 'mcq',
+                    question: `Which of the following best describes the concept of ${topic}?`,
+                    options: ['A fundamental principle in the field', 'An unrelated mathematical theorem', 'A cooking technique', 'A type of musical instrument'],
+                    correct: 0,
+                    explanation: `${topic} is a fundamental concept that forms the basis of understanding in this subject area. [Sample question for demonstration]`
+                },
+                {
+                    type: 'mcq',
+                    question: `What is the primary purpose of studying ${topic}?`,
+                    options: ['Entertainment only', 'Understanding underlying mechanisms and principles', 'Memorizing random facts', 'None of the above'],
+                    correct: 1,
+                    explanation: `Studying ${topic} helps us understand underlying mechanisms, make predictions, and apply knowledge practically. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `${topic} is an important topic in academic studies that has real-world applications.`,
+                    options: ['True', 'False'],
+                    correct: 0,
+                    explanation: `True! ${topic} has significant real-world applications across many fields. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `Which field is most directly related to ${topic}?`,
+                    options: ['Science and Technology', 'Ancient mythology', 'Fashion design', 'All of the above equally'],
+                    correct: 0,
+                    explanation: `${topic} is primarily studied within science and technology, though it may have interdisciplinary connections. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `A key characteristic of ${topic} is:`,
+                    options: ['It has no practical applications', 'It follows specific rules and principles', 'It cannot be studied scientifically', 'It was discovered in 2024'],
+                    correct: 1,
+                    explanation: `Like most academic subjects, ${topic} follows specific rules and principles that can be studied and understood. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `${topic} can only be understood by experts and is too complex for beginners.`,
+                    options: ['True', 'False'],
+                    correct: 1,
+                    explanation: `False! With proper explanations (like VIDYARA AI provides), anyone can learn ${topic} at their level. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `When studying ${topic}, which approach is most effective?`,
+                    options: ['Memorizing everything without understanding', 'Understanding core concepts first, then details', 'Skipping all practice problems', 'Only reading once'],
+                    correct: 1,
+                    explanation: `Understanding core concepts before diving into details is the most effective learning approach. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `What makes ${topic} relevant in modern education?`,
+                    options: ['Its historical significance only', 'Its applications in technology and research', 'It has no modern relevance', 'It is only taught in one country'],
+                    correct: 1,
+                    explanation: `${topic} remains highly relevant due to its applications in modern technology and ongoing research. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `Understanding ${topic} requires building on prerequisite knowledge.`,
+                    options: ['True', 'False'],
+                    correct: 0,
+                    explanation: `True! Most topics benefit from prerequisite knowledge, and VIDYARA AI's learning roadmap helps you build this foundation. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `The best way to test your understanding of ${topic} is:`,
+                    options: ['Never taking any tests', 'Taking practice quizzes and applying concepts', 'Only reading textbooks', 'Asking someone else to study for you'],
+                    correct: 1,
+                    explanation: `Active testing through quizzes and practical application is proven to be the most effective way to consolidate learning. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `A common misconception about ${topic} is:`,
+                    options: ['That it\'s straightforward and simple at all levels', 'That it has multiple layers of complexity', 'That it requires careful study', 'That practice helps understanding'],
+                    correct: 0,
+                    explanation: `Many students initially think ${topic} is simple, but it often has deeper layers of complexity worth exploring. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `Visual aids and animations can help in understanding ${topic} better.`,
+                    options: ['True', 'False'],
+                    correct: 0,
+                    explanation: `True! Visual learning aids, like those in VIDYARA AI's Concept Studio, significantly improve comprehension. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `Which study technique works best for mastering ${topic}?`,
+                    options: ['Cramming the night before', 'Spaced repetition and regular review', 'Reading once and hoping for the best', 'Ignoring difficult parts'],
+                    correct: 1,
+                    explanation: `Spaced repetition — reviewing material at increasing intervals — is scientifically proven to be the most effective study technique. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `The foundation of ${topic} was built upon:`,
+                    options: ['Random guesswork', 'Centuries of observation and research', 'A single experiment', 'Social media trends'],
+                    correct: 1,
+                    explanation: `Most academic fields, including ${topic}, are built upon extensive observation, experimentation, and research over time. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `When you encounter a difficult concept in ${topic}, you should:`,
+                    options: ['Skip it entirely', 'Break it into smaller parts and study each', 'Give up on the subject', 'Blame the teacher'],
+                    correct: 1,
+                    explanation: `Breaking complex concepts into smaller, manageable parts is the best strategy for understanding difficult material. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `${topic} has connections to other subjects and fields of study.`,
+                    options: ['True', 'False'],
+                    correct: 0,
+                    explanation: `True! Most subjects are interconnected, and understanding these connections deepens your overall knowledge. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `An advanced concept in ${topic} typically requires:`,
+                    options: ['No background knowledge', 'Understanding of fundamental concepts first', 'Only mathematical ability', 'Photographic memory'],
+                    correct: 1,
+                    explanation: `Advanced concepts build on fundamentals. VIDYARA AI's roadmap feature helps you learn prerequisites in the right order. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `How can AI tools like VIDYARA help with learning ${topic}?`,
+                    options: ['By doing homework for students', 'By providing personalized explanations and practice', 'By replacing teachers entirely', 'They cannot help'],
+                    correct: 1,
+                    explanation: `AI tools complement learning by providing personalized explanations, instant feedback, and adaptive practice — but they work best alongside traditional education. [Sample]`
+                },
+                {
+                    type: 'truefalse',
+                    question: `Regular practice and review is unnecessary for mastering ${topic}.`,
+                    options: ['True', 'False'],
+                    correct: 1,
+                    explanation: `False! Regular practice and review are essential for long-term retention and deep understanding. [Sample]`
+                },
+                {
+                    type: 'mcq',
+                    question: `The real-world impact of understanding ${topic} includes:`,
+                    options: ['Better problem-solving abilities', 'Career opportunities in related fields', 'Deeper understanding of the world', 'All of the above'],
+                    correct: 3,
+                    explanation: `Understanding any academic topic improves problem-solving, opens career paths, and deepens your understanding of the world. [Sample]`
+                }
+            ];
+
+            // Shuffle and return requested count
+            const shuffled = questionBank.sort(() => Math.random() - 0.5);
+            return shuffled.slice(0, Math.min(count, shuffled.length));
+        }
+
+        function renderQuizQuestion() {
+            const quiz = AppState.currentQuiz;
+            const idx = AppState.currentQuizIndex;
+            const q = quiz.questions[idx];
+            const total = quiz.questions.length;
+            const answered = AppState.quizAnswers[idx];
+            const letters = ['A', 'B', 'C', 'D'];
+
+            const container = document.getElementById('quizActive');
+            container.innerHTML = `
+                <div class="quiz-question-card card">
+                    <p style="color: var(--warning); font-size: 0.8rem; margin-bottom: 12px;">⚠️ Sample quiz questions for demonstration purposes</p>
+                    <div class="quiz-progress">
+                        <span class="q-counter">Question ${idx + 1} / ${total}</span>
+                        <div class="progress-bar" style="flex: 1;">
+                            <div class="progress-fill" style="width: ${((idx + 1) / total) * 100}%"></div>
+                        </div>
+                        <span class="badge badge-${quiz.difficulty === 'easy' ? 'success' : quiz.difficulty === 'hard' ? 'error' : 'warning'}">${quiz.difficulty}</span>
+                    </div>
+                    <div class="badge badge-info" style="margin-bottom: 12px;">${q.type === 'truefalse' ? 'True / False' : 'Multiple Choice'}</div>
+                    <div class="question-text">${q.question}</div>
+                    <div class="options-list" id="optionsList">
+                        ${q.options.map((opt, i) => {
+                            let classes = 'option-btn';
+                            if (answered !== null) {
+                                if (i === q.correct) classes += ' correct';
+                                else if (i === answered && i !== q.correct) classes += ' incorrect';
+                                if (i !== q.correct && i !== answered) classes += ' disabled';
+                            }
+                            return `<button class="${classes}" onclick="selectAnswer(${i})" ${answered !== null ? 'disabled' : ''}>
+                                <span class="option-letter">${letters[i] || (i + 1)}</span>
+                                <span>${opt}</span>
+                            </button>`;
+                        }).join('')}
+                    </div>
+                    ${answered !== null && quiz.mode === 'practice' ? `
+                        <div class="explanation-box ${answered === q.correct ? 'correct-exp' : 'incorrect-exp'}">
+                            <strong>${answered === q.correct ? '✅ Correct!' : '❌ Incorrect'}</strong>
+                            <p style="margin-top: 4px;">${q.explanation}</p>
+                        </div>
+                    ` : ''}
+                    <div class="quiz-nav">
+                        <button class="btn btn-secondary" ${idx === 0 ? 'disabled style="opacity:0.5;pointer-events:none;"' : ''} onclick="prevQuestion()">← Previous</button>
+                        ${idx === total - 1 ?
+                            `<button class="btn btn-primary" onclick="finishQuiz()" ${answered === null && quiz.mode === 'practice' ? 'disabled style="opacity:0.5;"' : ''}>Finish Quiz ✓</button>` :
+                            `<button class="btn btn-primary" onclick="nextQuestion()" ${answered === null && quiz.mode === 'practice' ? 'disabled style="opacity:0.5;"' : ''}>Next →</button>`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+
+        function selectAnswer(idx) {
+            if (AppState.quizAnswers[AppState.currentQuizIndex] !== null) return;
+            AppState.quizAnswers[AppState.currentQuizIndex] = idx;
+
+            if (AppState.currentQuiz.mode === 'practice') {
+                renderQuizQuestion();
+            } else {
+                // Exam mode — just highlight selection
+                document.querySelectorAll('.option-btn').forEach((btn, i) => {
+                    btn.classList.remove('selected');
+                    if (i === idx) btn.classList.add('selected');
+                });
+                // Enable next/finish
+                const navBtns = document.querySelectorAll('.quiz-nav .btn-primary');
+                navBtns.forEach(b => { b.disabled = false; b.style.opacity = '1'; b.style.pointerEvents = 'auto'; });
+            }
+        }
+
+        function nextQuestion() {
+            if (AppState.currentQuizIndex < AppState.currentQuiz.questions.length - 1) {
+                AppState.currentQuizIndex++;
+                renderQuizQuestion();
+            }
+        }
+
+        function prevQuestion() {
+            if (AppState.currentQuizIndex > 0) {
+                AppState.currentQuizIndex--;
+                renderQuizQuestion();
+            }
+        }
+
+        function finishQuiz() {
+            const quiz = AppState.currentQuiz;
+            let correct = 0;
+            quiz.questions.forEach((q, i) => {
+                if (AppState.quizAnswers[i] === q.correct) correct++;
+            });
+
+            const total = quiz.questions.length;
+            const score = Math.round((correct / total) * 100);
+            const grade = score >= 90 ? 'A+' : score >= 80 ? 'A' : score >= 70 ? 'B' : score >= 60 ? 'C' : score >= 50 ? 'D' : 'F';
+            const emoji = score >= 80 ? '🎉' : score >= 60 ? '👍' : score >= 40 ? '📚' : '💪';
+
+            // Save results
+            AppState.userData.quizResults.push({
+                topic: quiz.topic,
+                score,
+                correct,
+                total,
+                difficulty: quiz.difficulty,
+                date: new Date().toISOString()
+            });
+            saveUserData();
+            addActivity('quiz', `Quiz: ${quiz.topic}`, `Score: ${score}% (${correct}/${total})`);
+
+            document.getElementById('quizActive').classList.add('hidden');
+            const resultsDiv = document.getElementById('quizResults');
+            resultsDiv.classList.remove('hidden');
+
+            resultsDiv.innerHTML = `
+                <div class="quiz-results">
+                    <h2>${emoji} Quiz Complete!</h2>
+                    <p style="color: var(--text-secondary);">Topic: ${quiz.topic} | Difficulty: ${quiz.difficulty}</p>
+                    <div class="score-circle">
+                        <span class="score-value">${score}%</span>
+                        <span class="score-label">Grade: ${grade}</span>
+                    </div>
+                    <div class="results-stats">
+                        <div class="card result-stat">
+                            <div class="rs-value" style="color: var(--success);">${correct}</div>
+                            <div class="rs-label">Correct</div>
+                        </div>
+                        <div class="card result-stat">
+                            <div class="rs-value" style="color: var(--error);">${total - correct}</div>
+                            <div class="rs-label">Incorrect</div>
+                        </div>
+                        <div class="card result-stat">
+                            <div class="rs-value">${total}</div>
+                            <div class="rs-label">Total Questions</div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="text-align: left; margin-top: 24px; padding: 24px;">
+                        <h3 style="margin-bottom: 16px;">📋 Review Answers</h3>
+                        ${quiz.questions.map((q, i) => {
+                            const isCorrect = AppState.quizAnswers[i] === q.correct;
+                            return `<div style="padding: 12px 0; border-bottom: 1px solid var(--border-color);">
+                                <div style="display: flex; align-items: start; gap: 8px;">
+                                    <span>${isCorrect ? '✅' : '❌'}</span>
+                                    <div>
+                                        <p style="font-weight: 500; margin-bottom: 4px;">Q${i + 1}: ${q.question}</p>
+                                        <p style="font-size: 0.85rem; color: ${isCorrect ? 'var(--success)' : 'var(--error)'};">
+                                            Your answer: ${q.options[AppState.quizAnswers[i]] || 'Not answered'}
+                                        </p>
+                                        ${!isCorrect ? `<p style="font-size: 0.85rem; color: var(--success);">Correct: ${q.options[q.correct]}</p>` : ''}
+                                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;">${q.explanation}</p>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('')}
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; margin-top: 24px;">
+                        <button class="btn btn-primary" onclick="retakeQuiz()">🔄 Retake Quiz</button>
+                        <button class="btn btn-secondary" onclick="newQuiz()">📝 New Quiz</button>
+                        <button class="btn btn-ghost" onclick="saveQuizResults()">📑 Save Results</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function retakeQuiz() {
+            AppState.currentQuizIndex = 0;
+            AppState.quizAnswers = new Array(AppState.currentQuiz.questions.length).fill(null);
+            document.getElementById('quizResults').classList.add('hidden');
+            document.getElementById('quizActive').classList.remove('hidden');
+            renderQuizQuestion();
+        }
+
+        function newQuiz() {
+            document.getElementById('quizResults').classList.add('hidden');
+            document.getElementById('quizActive').classList.add('hidden');
+            document.getElementById('quizSetup').classList.remove('hidden');
+        }
+
+        function saveQuizResults() {
+            const bookmark = {
+                id: Date.now(),
+                type: 'quizzes',
+                title: `📝 Quiz: ${AppState.currentQuiz.topic}`,
+                content: `Score: ${Math.round((AppState.quizAnswers.filter((a, i) => a === AppState.currentQuiz.questions[i].correct).length / AppState.currentQuiz.questions.length) * 100)}%`,
+                date: new Date().toISOString()
+            };
+            AppState.userData.bookmarks.push(bookmark);
+            saveUserData();
+            showToast('Quiz results saved!', 'success');
+        }
+
+        // ===== LEARNING ROADMAP =====
+        function generateRoadmap() {
+            const subject = document.getElementById('roadmapSubject').value.trim();
+            const goal = document.getElementById('roadmapGoal').value.trim();
+            const level = document.getElementById('roadmapLevel').value;
+            const time = document.getElementById('roadmapTime').value;
+
+            if (!subject) {
+                showToast('Please enter a subject', 'warning');
+                return;
+            }
+
+            if (!goal) {
+                showToast('Please enter a learning goal', 'warning');
+                return;
+            }
+
+            document.getElementById('roadmapSetup').classList.add('hidden');
+            const display = document.getElementById('roadmapDisplay');
+            display.classList.remove('hidden');
+
+            const roadmapData = generateRoadmapData(subject, goal, level, time);
+            const roadmapId = Date.now();
+
+            // Save roadmap
+            AppState.userData.roadmaps.push({
+                id: roadmapId,
+                subject,
+                goal,
+                level,
+                time,
+                items: roadmapData,
+                date: new Date().toISOString()
+            });
+            saveUserData();
+            addActivity('roadmap', `Roadmap: ${subject}`, goal);
+
+            renderRoadmap(roadmapData, subject, goal, roadmapId);
+        }
+
+        function generateRoadmapData(subject, goal, level, time) {
+            const weeks = Math.max(2, Math.ceil(8 / parseInt(time)));
+            const items = [
+                {
+                    week: 1,
+                    title: `Foundations of ${subject}`,
+                    description: 'Start with the basic concepts, terminology, and fundamental principles.',
+                    status: 'current',
+                    tasks: [
+                        { text: `Read introductory material on ${subject}`, done: false },
+                        { text: 'Take notes on key definitions', done: false },
+                        { text: 'Watch overview videos or tutorials', done: false },
+                        { text: 'Complete beginner practice problems', done: false }
+                    ]
+                },
+                {
+                    week: 2,
+                    title: 'Core Concepts Deep Dive',
+                    description: 'Build on fundamentals with more detailed study of core topics.',
+                    status: 'pending',
+                    tasks: [
+                        { text: 'Study main theories and principles', done: false },
+                        { text: 'Work through solved examples', done: false },
+                        { text: 'Create concept maps or diagrams', done: false },
+                        { text: 'Take a practice quiz', done: false }
+                    ]
+                },
+                {
+                    week: 3,
+                    title: 'Intermediate Topics',
+                    description: 'Explore more complex concepts that build on the foundations.',
+                    status: 'pending',
+                    tasks: [
+                        { text: 'Study intermediate-level material', done: false },
+                        { text: 'Solve application-based problems', done: false },
+                        { text: 'Review and revise previous weeks', done: false },
+                        { text: 'Identify weak areas for extra focus', done: false }
+                    ]
+                },
+                {
+                    week: 4,
+                    title: 'Practice & Application',
+                    description: 'Apply knowledge through extensive practice and problem-solving.',
+                    status: 'pending',
+                    tasks: [
+                        { text: 'Work on challenging problems', done: false },
+                        { text: 'Connect concepts across topics', done: false },
+                        { text: 'Start past exam questions (if applicable)', done: false },
+                        { text: 'Teach a concept to reinforce understanding', done: false }
+                    ]
+                },
+                {
+                    week: 5,
+                    title: 'Advanced Topics & Revision',
+                    description: 'Cover advanced material and begin comprehensive revision.',
+                    status: 'pending',
+                    tasks: [
+                        { text: 'Study advanced or nuanced topics', done: false },
+                        { text: 'Create summary sheets for all topics', done: false },
+                        { text: 'Take a full-length practice test', done: false },
+                        { text: 'Review mistakes and fill knowledge gaps', done: false }
+                    ]
+                },
+                {
+                    week: 6,
+                    title: `Mastery & ${goal}`,
+                    description: 'Final review and preparation to achieve your learning goal.',
+                    status: 'pending',
+                    tasks: [
+                        { text: 'Complete final revision of all topics', done: false },
+                        { text: 'Do rapid-fire quiz sessions', done: false },
+                        { text: 'Review weak areas one more time', done: false },
+                        { text: `Achieve goal: ${goal}`, done: false }
+                    ]
+                }
+            ];
+
+            return items;
+        }
+
+        function renderRoadmap(items, subject, goal, roadmapId) {
+            const display = document.getElementById('roadmapDisplay');
+            const totalTasks = items.reduce((a, i) => a + i.tasks.length, 0);
+            const doneTasks = items.reduce((a, i) => a + i.tasks.filter(t => t.done).length, 0);
+            const progress = totalTasks > 0 ? Math.round((doneTasks / totalTasks) * 100) : 0;
+
+            display.innerHTML = `
+                <div class="roadmap-container">
+                    <div style="text-align: center; margin-bottom: 32px;">
+                        <p style="color: var(--warning); font-size: 0.8rem;">⚠️ Sample learning roadmap for demonstration. Real AI would customize based on your specific needs.</p>
+                    </div>
+                    <div class="card" style="margin-bottom: 32px; padding: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <div>
+                                <h2 style="font-size: 1.3rem;">🗺️ ${subject} Learning Path</h2>
+                                <p style="color: var(--text-secondary); font-size: 0.9rem;">Goal: ${goal}</p>
+                            </div>
+                            <span class="badge badge-primary">${progress}% Complete</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 8px;">${doneTasks} of ${totalTasks} tasks completed</p>
+                    </div>
+
+                    <div class="roadmap-timeline">
+                        ${items.map((item, idx) => `
+                            <div class="card roadmap-item ${item.status}" id="roadmap-item-${idx}">
+                                <div class="roadmap-item-header">
+                                    <h4>Week ${item.week}: ${item.title}</h4>
+                                    <span class="badge ${item.status === 'completed' ? 'badge-success' : item.status === 'current' ? 'badge-primary' : 'badge-info'}">
+                                        ${item.status === 'completed' ? '✅ Done' : item.status === 'current' ? '📍 Current' : '🔒 Upcoming'}
+                                    </span>
+                                </div>
+                                <p>${item.description}</p>
+                                <div class="roadmap-tasks">
+                                    ${item.tasks.map((task, ti) => `
+                                        <label class="roadmap-task ${task.done ? 'done' : ''}">
+                                            <input type="checkbox" ${task.done ? 'checked' : ''} onchange="toggleRoadmapTask(${roadmapId}, ${idx}, ${ti}, this.checked)">
+                                            <span>${task.text}</span>
+                                        </label>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <div style="display: flex; gap: 12px; justify-content: center; margin-top: 32px;">
+                        <button class="btn btn-secondary" onclick="document.getElementById('roadmapDisplay').classList.add('hidden'); document.getElementById('roadmapSetup').classList.remove('hidden');">← New Roadmap</button>
+                        <button class="btn btn-primary" onclick="downloadRoadmap('${escapeHtml(subject)}')">📥 Download Roadmap</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleRoadmapTask(roadmapId, itemIdx, taskIdx, checked) {
+            const roadmap = AppState.userData.roadmaps.find(r => r.id === roadmapId);
+            if (roadmap) {
+                roadmap.items[itemIdx].tasks[taskIdx].done = checked;
+
+                // Update item status
+                const allDone = roadmap.items[itemIdx].tasks.every(t => t.done);
+                if (allDone) {
+                    roadmap.items[itemIdx].status = 'completed';
+                    if (itemIdx + 1 < roadmap.items.length && roadmap.items[itemIdx + 1].status === 'pending') {
+                        roadmap.items[itemIdx + 1].status = 'current';
+                    }
+                    showToast('Week completed! 🎉 Moving to next section.', 'success');
+                }
+
+                saveUserData();
+                renderRoadmap(roadmap.items, roadmap.subject, roadmap.goal, roadmapId);
+            }
+        }
+
+        function downloadRoadmap(subject) {
+            const roadmap = AppState.userData.roadmaps[AppState.userData.roadmaps.length - 1];
+            if (!roadmap) return;
+
+            let content = `VIDYARA AI — Learning Roadmap\n${'='.repeat(40)}\nSubject: ${subject}\nGoal: ${roadmap.goal}\nLevel: ${roadmap.level}\n\n`;
+            roadmap.items.forEach(item => {
+                content += `\nWeek ${item.week}: ${item.title}\n${'-'.repeat(30)}\n${item.description}\n\nTasks:\n`;
+                item.tasks.forEach(t => {
+                    content += `  [${t.done ? 'x' : ' '}] ${t.text}\n`;
+                });
+            });
+
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `vidyara-roadmap-${subject.toLowerCase().replace(/\s+/g, '-')}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Roadmap downloaded!', 'success');
+        }
+
+        // ===== BOOKMARKS =====
+        function renderBookmarks(filter = 'all') {
+            const grid = document.getElementById('bookmarksGrid');
+            const bookmarks = AppState.userData.bookmarks || [];
+            const filtered = filter === 'all' ? bookmarks : bookmarks.filter(b => b.type === filter);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <div class="empty-icon">📑</div>
+                        <h3>No ${filter === 'all' ? '' : filter + ' '}bookmarks yet</h3>
+                        <p>Save explanations, notes, and quiz results to find them here.</p>
+                        <button class="btn btn-primary" onclick="navigateTo('assistant')">Start Learning</button>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(b => `
+                <div class="card bookmark-card">
+                    <h4>${b.title}</h4>
+                    <p>${(b.content || '').substring(0, 150)}...</p>
+                    <div class="bookmark-meta">
+                        <span class="badge badge-${b.type === 'explanations' ? 'primary' : b.type === 'notes' ? 'info' : 'success'}">${b.type}</span>
+                        <span>${timeAgo(b.date)}</span>
+                    </div>
+                    <button class="btn btn-sm btn-ghost" style="margin-top: 12px;" onclick="removeBookmark(${b.id})">🗑️ Remove</button>
+                </div>
+            `).join('');
+        }
+
+        function filterBookmarks(filter, btn) {
+            document.querySelectorAll('#page-bookmarks .tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderBookmarks(filter);
+        }
+
+        function removeBookmark(id) {
+            AppState.userData.bookmarks = AppState.userData.bookmarks.filter(b => b.id !== id);
+            saveUserData();
+            renderBookmarks();
+            showToast('Bookmark removed', 'info');
+        }
+
+        // ===== SETTINGS =====
+        function showSettingsTab(tab, btn) {
+            document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.settings-nav-item').forEach(b => b.classList.remove('active'));
+            document.getElementById('settings-' + tab).classList.add('active');
+            btn.classList.add('active');
+        }
+
+        function loadUserProfile() {
+            const ud = AppState.userData;
+            const nameInput = document.getElementById('settingName');
+            const levelInput = document.getElementById('settingLevel');
+            const subjectsInput = document.getElementById('settingSubjects');
+            if (nameInput) nameInput.value = ud.name || '';
+            if (levelInput) levelInput.value = ud.level || 'undergraduate';
+            if (subjectsInput) subjectsInput.value = ud.subjects || '';
+
+            // Load API settings
+            const apiConfig = AppState.apiConfig;
+            const providerSelect = document.getElementById('aiProvider');
+            const apiKeyInput = document.getElementById('aiApiKey');
+            const ocrSelect = document.getElementById('ocrProvider');
+            if (providerSelect) providerSelect.value = apiConfig.provider || 'demo';
+            if (apiKeyInput) apiKeyInput.value = apiConfig.key || '';
+            if (ocrSelect) ocrSelect.value = apiConfig.ocr || 'demo';
+        }
+
+        function saveProfile() {
+            AppState.userData.name = document.getElementById('settingName').value || 'Student';
+            AppState.userData.level = document.getElementById('settingLevel').value;
+            AppState.userData.subjects = document.getElementById('settingSubjects').value;
+            saveUserData();
+            showToast('Profile saved successfully!', 'success');
+        }
+
+        function saveApiSettings() {
+            AppState.apiConfig = {
+                provider: document.getElementById('aiProvider').value,
+                key: document.getElementById('aiApiKey').value,
+                ocr: document.getElementById('ocrProvider').value
+            };
+            localStorage.setItem('vidyara_api', JSON.stringify(AppState.apiConfig));
+
+            // Update banners
+            const isDemoMode = AppState.apiConfig.provider === 'demo' || !AppState.apiConfig.key;
+            const aiBanner = document.getElementById('aiBanner');
+            if (aiBanner) aiBanner.style.display = isDemoMode ? 'flex' : 'none';
+
+            showToast('API settings saved!', 'success');
+        }
+
+        function testApiConnection() {
+            if (AppState.apiConfig.provider === 'demo' || !AppState.apiConfig.key) {
+                showToast('Running in Demo Mode. Add an API key to test a real connection.', 'warning');
+                return;
+            }
+            showToast(`${AppState.apiConfig.provider} settings are stored locally. This single-file version does not send requests to a provider.`, 'info');
+        }
+
+        function calculateStorage() {
+            let total = 0;
+            for (let key in localStorage) {
+                if (key.startsWith('vidyara_')) {
+                    total += localStorage[key].length * 2; // Approximate bytes
+                }
+            }
+            const el = document.getElementById('storageUsed');
+            if (el) {
+                el.textContent = total > 1024 ? `${(total / 1024).toFixed(1)} KB used` : `${total} bytes used`;
+            }
+        }
+
+        function exportData() {
+            const data = {
+                user: AppState.userData,
+                apiConfig: { provider: AppState.apiConfig.provider, ocr: AppState.apiConfig.ocr },
+                theme: AppState.theme,
+                exportDate: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'vidyara-data-export.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('Data exported successfully!', 'success');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear all data? This action cannot be undone.')) {
+                const defaultData = {
+                    name: 'Student', level: 'undergraduate', subjects: '',
+                    topicsStudied: [], quizResults: [], bookmarks: [], savedNotes: [],
+                    roadmaps: [], streak: 0, lastActive: '', totalStudyTopics: 0
+                };
+                AppState.userData = defaultData;
+                AppState.apiConfig = { provider: 'demo', key: '', ocr: 'demo' };
+                localStorage.removeItem('vidyara_api');
+                saveUserData();
+                updateDashboard();
+                renderBookmarks();
+                calculateStorage();
+                showToast('All data cleared.', 'info');
+            }
+        }
+
+        // ===== UTILITY =====
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ===== INITIALIZE =====
+        init();
+    </script>
+</body>
+</html>
